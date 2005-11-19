@@ -14,6 +14,7 @@ can_ok($widget, 'input');
   my $html = $widget->input({
     name  => 'flavor',
     value => 'minty',
+    class => 'orange',
   });
 
   my $tree = HTML::TreeBuilder->new_from_content($html);
@@ -32,5 +33,11 @@ can_ok($widget, 'input');
     $input->attr('value'),
     'minty',
     "got correct form value",
+  );
+
+  is(
+    $input->attr('class'),
+    'orange',
+    "class passed through",
   );
 }
