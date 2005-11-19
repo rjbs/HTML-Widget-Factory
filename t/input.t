@@ -11,12 +11,12 @@ isa_ok($widget, 'HTML::Widget::Factory');
 can_ok($widget, 'input');
 
 { # make a super-simple input field
-  my $input = $widget->input({
+  my $html = $widget->input({
     name  => 'flavor',
     value => 'minty',
   });
 
-  my $tree = HTML::TreeBuilder->new_from_content($input);
+  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($input) = $tree->look_down(_tag => 'input');
 
