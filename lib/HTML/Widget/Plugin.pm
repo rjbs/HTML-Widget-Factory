@@ -121,15 +121,21 @@ sub import {
 
   my @widgets = $class->provided_widgets;
 
-  for (@widgets) {
-    croak "$target can already perform method '$_'"
-      if $target->can($_);
+  for my $widget (@widgets) {
+    my $install_to = $widget;;
+    ($widget, $install_to) = @$widget if ref $widget;
+
+    croak "$target can already provide widget '$widget'"
+      if $target->can($install_to);
   
-    croak "$class claims to provide widget '$_' but has no such method"
-      unless $class->can($_);
+    croak "$class claims to provide widget '$widget' but has no such method"
+      unless $class->can($widget);
 
     no strict 'refs';
-    *{$target . '::' . $_} = $class->can($_);
+    *{$target . '::' . $install_to} = sub {
+      my ($self, $arg) = @_;
+      $class->$widget($self, $arg);
+    }
   }
 }
 

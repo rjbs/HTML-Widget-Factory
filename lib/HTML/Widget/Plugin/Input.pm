@@ -60,10 +60,18 @@ different plugin, instead.
 =cut
 
 sub _attribute_args { qw(type value) }
+sub _boolean_args   { qw(disabled) }
 
 sub input {
-  my $self = shift;
-  my $arg  = __PACKAGE__->rewrite_arg(shift);
+  my $self    = shift;
+  my $factory = shift;
+  my $arg     = $self->rewrite_arg(shift);
+
+  $self->build($factory, $arg);
+}
+
+sub build {
+  my ($self, $factory, $arg) = @_;
 
   my $widget = HTML::Element->new('input');
 

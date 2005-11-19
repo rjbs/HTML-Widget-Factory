@@ -76,8 +76,7 @@ can_ok($widget, 'select');
   my $html = $widget->select({
     options  => [ qw(red orange yellow green blue indigo violet) ],
     name     => 'color',
-    enabled  => 1,
-    multiple => 'sure',
+    disabled => 'yup',
   });
 
   my $tree = HTML::TreeBuilder->new_from_content($html);
@@ -93,9 +92,9 @@ can_ok($widget, 'select');
   );
 
   is(
-    $select->attr('multiple'),
-    'multiple',
-    "multiple set true as a bool",
+    $select->attr('disabled'),
+    'disabled',
+    "disabled set true as a bool",
   );
 
   my @selected = $select->look_down(sub { $_[0]->attr('selected') });

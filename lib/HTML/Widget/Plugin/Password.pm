@@ -2,12 +2,12 @@
 use strict;
 use warnings;
 
-package HTML::Widget::Plugin::Checkbox;
+package HTML::Widget::Plugin::Password;
 use base qw(HTML::Widget::Plugin::Input);
 
 =head1 NAME
 
-HTML::Widget::Plugin::Checkbox - it's either [ ] or [x]
+HTML::Widget::Plugin::Password - for SECRET input
 
 =head1 VERSION
 
@@ -21,7 +21,7 @@ our $VERSION = '0.01';
 
 =head1 DESCRIPTION
 
-This plugin provides a widget for boolean checkbox widgets.
+This plugin provides a widget for password-entry inputs.
 
 =cut
 
@@ -31,15 +31,15 @@ use HTML::Element;
 
 =head2 C< provided_widgets >
 
-This plugin provides the following widgets: checkbox
+This plugin provides the following widgets: password
 
 =cut
 
-sub provided_widgets { qw(checkbox) }
+sub provided_widgets { qw(password) }
 
-=head2 C< checkbox >
+=head2 C< password >
 
-This method returns a checkbox widget.
+This method returns a password-entry widget.
 
 In addition to the generic L<HTML::Widget::Plugin> attributes, the following
 are valid arguments:
@@ -48,14 +48,14 @@ are valid arguments:
 
 =item value
 
-This is the widget's initial value.  If true, the checkbox is checked.
-Otherwise, it is not.
+This is the widget's initial value.  The value is eaten and displayed as a
+series of spaces, if the value is defined.
 
 =back
 
 =cut
 
-sub checkbox {
+sub password {
   my $self    = shift;
   my $factory = shift;
   my $arg     = $self->rewrite_arg(shift);
@@ -68,9 +68,9 @@ sub rewrite_arg {
 
   $arg = $self->SUPER::rewrite_arg($arg);
 
-  $arg->{attr}{type} = "checkbox";
+  $arg->{attr}{type} = "password";
 
-  $arg->{attr}{checked} = 'checked' if delete $arg->{attr}{value};
+  $arg->{attr}{value} &&= "        ";
 
   return $arg;
 }

@@ -46,6 +46,11 @@ are valid arguments:
 
 =over
 
+=item disabled
+
+If true, this option indicates that the select widget can't be changed by the
+user.
+
 =item options
 
 This may be an arrayref of arrayrefs, each containing a value/name pair, or it
@@ -66,12 +71,13 @@ has this value.
 
 =cut
 
-sub _attribute_args { qw(multiple) }
-sub _boolean_args   { qw(multiple) }
+sub _attribute_args { qw(disabled) }
+sub _boolean_args   { qw(disabled) }
 
 sub select {
-  my $self = shift;
-  my $arg = __PACKAGE__->rewrite_arg(shift);
+  my $self   = shift;
+  my $factor = shift;
+  my $arg = $self->rewrite_arg(shift);
 
   my $widget = HTML::Element->new('select');
 
@@ -80,13 +86,6 @@ sub select {
     @options = map { [ $_, $arg->{options}{$_} ] } keys %{ $arg->{options} };
   } else {
     @options = @{ $arg->{options} };
-  }
-
-  # maybe this should be configurable?
-  if (my $value = $arg->{value}) {
-    my $matches = grep { $value eq $_ } map { ref $_ ? $_->[0] : $_ } @options;
-    Carp::croak "provided value not in given options" unless $matches;
-    Carp::croak "provided value matches more than one option" if $matches > 1;
   }
 
   for my $entry (@options) {
@@ -100,6 +99,24 @@ sub select {
 
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
   return $widget->as_HTML;
+}
+
+=head2 C< validate_value >
+
+This method checks whether the given value option is valid.  See C<L</select>>
+for an explanation of its default rules.
+
+=cut
+
+sub validate_value {
+  my ($class, $value, $options) = @_;
+
+  # maybe this should be configurable?
+  if ($value) {
+    my $matches = grep { $value eq $_ } map { ref $_ ? $_->[0] : $_ } @$options;
+    Carp::croak "provided value not in given options" unless $matches;
+    Carp::croak "provided value matches more than one option" if $matches > 1;
+  }
 }
 
 =head1 AUTHOR

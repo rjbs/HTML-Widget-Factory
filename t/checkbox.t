@@ -44,6 +44,4 @@ can_ok($widget, 'checkbox');
     undef,
     "...but it has no value"
   );
-
-  warn $checkbox->as_HTML;
 }
