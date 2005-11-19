@@ -55,6 +55,8 @@ Otherwise, it is not.
 
 =cut
 
+sub _attribute_args { qw(value) }
+
 sub checkbox {
   my $self = shift;
   my $arg  = __PACKAGE__->rewrite_arg(shift);
