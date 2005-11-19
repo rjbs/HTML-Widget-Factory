@@ -59,9 +59,15 @@ is important.
 If this argument is given, the option with this value will be pre-selected in
 the widget's initial state.
 
+An exception will be thrown if more or less than one of the provided options
+has this value.
+
 =back
 
 =cut
+
+sub _attribute_args { qw(multiple) }
+sub _boolean_args   { qw(multiple) }
 
 sub select {
   my $self = shift;
@@ -76,11 +82,19 @@ sub select {
     @options = @{ $arg->{options} };
   }
 
+  # maybe this should be configurable?
+  if (my $value = $arg->{value}) {
+    my $matches = grep { $value eq $_ } map { ref $_ ? $_->[0] : $_ } @options;
+    Carp::croak "provided value not in given options" unless $matches;
+    Carp::croak "provided value matches more than one option" if $matches > 1;
+  }
+
   for my $entry (@options) {
-    my ($value, $name) = @$entry;
+    my ($value, $name) = (ref $entry) ? @$entry : ($entry) x 2;
     my $option = HTML::Element->new('option', value => $value);
        $option->push_content($name);
-       $option->attr(selected => 'selected') if $arg->{value} eq $value;
+       $option->attr(selected => 'selected')
+         if $arg->{value} and $value and $arg->{value} eq $value;
     $widget->push_content($option);
   }
 
