@@ -12,8 +12,8 @@ can_ok($widget, 'checkbox');
 
 { # make a super-simple checkbox widget
   my $html = $widget->checkbox({
-    name  => 'flavor',
-    value => 'minty',
+    name    => 'flavor',
+    checked => 'minty',
   });
 
   my $tree = HTML::TreeBuilder->new_from_content($html);

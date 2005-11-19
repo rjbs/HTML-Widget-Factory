@@ -35,7 +35,7 @@ This plugin provides the following widgets: input
 
 =cut
 
-sub provided_widgets { qw(input) }
+sub provided_widgets { qw(input hidden) }
 
 =head2 C< input >
 
@@ -59,13 +59,23 @@ different plugin, instead.
 
 =cut
 
-sub _attribute_args { qw(type value) }
+sub _attribute_args { qw(type value size maxlength) }
 sub _boolean_args   { qw(disabled) }
 
 sub input {
   my $self    = shift;
   my $factory = shift;
   my $arg     = $self->rewrite_arg(shift);
+
+  $self->build($factory, $arg);
+}
+
+sub hidden {
+  my $self    = shift;
+  my $factory = shift;
+  my $arg     = $self->rewrite_arg(shift);
+
+  $arg->{attr}{type} = 'hidden';
 
   $self->build($factory, $arg);
 }

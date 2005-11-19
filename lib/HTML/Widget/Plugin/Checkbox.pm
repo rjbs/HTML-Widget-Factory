@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Checkbox;
-use base qw(HTML::Widget::Plugin::Input);
+use base qw(HTML::Widget::Plugin);
 
 =head1 NAME
 
@@ -46,33 +46,29 @@ are valid arguments:
 
 =over
 
-=item value
+=item checked
 
-This is the widget's initial value.  If true, the checkbox is checked.
+This is the widget's initial state.  If true, the checkbox is checked.
 Otherwise, it is not.
 
 =back
 
 =cut
 
+sub _attribute_args { qw(checked) }
+sub _boolean_args   { qw(checked) }
+
 sub checkbox {
   my $self    = shift;
   my $factory = shift;
   my $arg     = $self->rewrite_arg(shift);
 
-  return $self->build($factory, $arg);
-}
+  $arg->{attr}{type} = 'checkbox';
 
-sub rewrite_arg {
-  my ($self, $arg) = @_;
+  my $widget = HTML::Element->new('input');
 
-  $arg = $self->SUPER::rewrite_arg($arg);
-
-  $arg->{attr}{type} = "checkbox";
-
-  $arg->{attr}{checked} = 'checked' if delete $arg->{attr}{value};
-
-  return $arg;
+  $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
+  return $widget->as_HTML;
 }
 
 =head1 AUTHOR
