@@ -88,6 +88,8 @@ sub select {
     @options = @{ $arg->{options} };
   }
 
+  $self->validate_value($arg->{value}, \@options);
+
   for my $entry (@options) {
     my ($value, $name) = (ref $entry) ? @$entry : ($entry) x 2;
     my $option = HTML::Element->new('option', value => $value);
