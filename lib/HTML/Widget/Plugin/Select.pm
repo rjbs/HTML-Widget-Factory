@@ -75,10 +75,15 @@ sub _attribute_args { qw(disabled) }
 sub _boolean_args   { qw(disabled) }
 
 sub select {
-  my $self   = shift;
-  my $factor = shift;
+  my $self    = shift;
+  my $factory = shift;
   my $arg = $self->rewrite_arg(shift);
 
+  $self->build($factory, $arg);
+}
+
+sub build {
+  my ($self, $factory, $arg) = @_;
   my $widget = HTML::Element->new('select');
 
   my @options;
@@ -92,15 +97,23 @@ sub select {
 
   for my $entry (@options) {
     my ($value, $name) = (ref $entry) ? @$entry : ($entry) x 2;
-    my $option = HTML::Element->new('option', value => $value);
-       $option->push_content($name);
-       $option->attr(selected => 'selected')
-         if $arg->{value} and $value and $arg->{value} eq $value;
+    my $option = $self->make_option($factory, $value, $name, $arg);
     $widget->push_content($option);
   }
 
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
   return $widget->as_HTML;
+}
+
+sub make_option {
+  my ($self, $factory, $value, $name, $arg) = @_;
+
+  my $option = HTML::Element->new('option', value => $value);
+     $option->push_content($name);
+     $option->attr(selected => 'selected')
+       if $arg->{value} and $value and $arg->{value} eq $value;
+
+  return $option;
 }
 
 =head2 C< validate_value >
