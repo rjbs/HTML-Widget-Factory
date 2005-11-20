@@ -64,6 +64,23 @@ sub new {
   bless {} => $class;
 }
 
+=head1 SEE ALSO
+
+=over
+
+=item L< HTML::Widget::Plugin >
+
+=item L< HTML::Widget::Plugin::Input >
+=item L< HTML::Widget::Plugin::Password >
+=item L< HTML::Widget::Plugin::Select >
+=item L< HTML::Widget::Plugin::Multiselect >
+=item L< HTML::Widget::Plugin::Checkbox >
+=item L< HTML::Widget::Plugin::Radio >
+
+=item L< HTML::Element >
+
+=back
+
 =head1 AUTHOR
 
 Ricardo SIGNES <C<rjbs @ cpan.org>>
