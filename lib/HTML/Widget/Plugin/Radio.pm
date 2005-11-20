@@ -88,7 +88,7 @@ sub radio {
     push @widgets, $widget;
   }
 
-  return join '', map { $_->as_HTML } @widgets;
+  return join '', map { $_->as_XML } @widgets;
 }
 
 =head2 C< validate_value >

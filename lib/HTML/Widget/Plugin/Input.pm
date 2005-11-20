@@ -82,7 +82,7 @@ sub build {
   my $widget = HTML::Element->new('input');
 
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
-  return $widget->as_HTML;
+  return $widget->as_XML;
 }
 
 =head1 AUTHOR

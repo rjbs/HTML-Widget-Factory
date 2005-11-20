@@ -100,7 +100,7 @@ sub build {
   }
 
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
-  return $widget->as_HTML;
+  return $widget->as_XML;
 }
 
 sub make_option {

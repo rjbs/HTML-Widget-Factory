@@ -19,7 +19,7 @@ can_ok($widget, 'multiselect');
   });
 
   my $tree = HTML::TreeBuilder->new_from_content($html);
-  
+
   my ($select) = $tree->look_down(_tag => 'select');
 
   isa_ok($select, 'HTML::Element');
