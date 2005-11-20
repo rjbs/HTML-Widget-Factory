@@ -59,9 +59,7 @@ sub _attribute_args { qw(checked) }
 sub _boolean_args   { qw(checked) }
 
 sub checkbox {
-  my $self    = shift;
-  my $factory = shift;
-  my $arg     = $self->rewrite_arg(shift);
+  my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{type} = 'checkbox';
 

@@ -58,9 +58,7 @@ This is the number of elements that should be visible in the widget.
 sub _attribute_args { qw(size) }
 
 sub multiselect {
-  my $self    = shift;
-  my $factory = shift;
-  my $arg = $self->rewrite_arg(shift);
+  my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{multiple} = 'multiple';
 

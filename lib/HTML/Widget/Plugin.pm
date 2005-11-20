@@ -133,7 +133,8 @@ sub import {
 
     no strict 'refs';
     *{$target . '::' . $install_to} = sub {
-      my ($self, $arg) = @_;
+      my ($self, $given_arg) = @_;
+      my $arg = $class->rewrite_arg($given_arg);
       $class->$widget($self, $arg);
     }
   }

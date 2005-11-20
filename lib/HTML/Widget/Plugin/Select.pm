@@ -75,9 +75,7 @@ sub _attribute_args { qw(disabled) }
 sub _boolean_args   { qw(disabled) }
 
 sub select {
-  my $self    = shift;
-  my $factory = shift;
-  my $arg = $self->rewrite_arg(shift);
+  my ($self, $factory, $arg) = @_;
 
   $self->build($factory, $arg);
 }

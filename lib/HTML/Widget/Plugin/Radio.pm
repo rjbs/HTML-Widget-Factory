@@ -72,9 +72,7 @@ sub _attribute_args { qw(disabled) }
 sub _boolean_args   { qw(disabled) }
 
 sub radio {
-  my $self   = shift;
-  my $factor = shift;
-  my $arg = $self->rewrite_arg(shift);
+  my ($self, $factory, $arg) = @_;
 
   my @widgets;
 

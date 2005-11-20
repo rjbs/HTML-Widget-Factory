@@ -35,7 +35,7 @@ This plugin provides the following widgets: password
 
 =cut
 
-sub provided_widgets { qw(password) }
+sub provided_widgets { [ input => 'password' ] }
 
 =head2 C< password >
 
@@ -54,14 +54,6 @@ series of spaces, if the value is defined.
 =back
 
 =cut
-
-sub password {
-  my $self    = shift;
-  my $factory = shift;
-  my $arg     = $self->rewrite_arg(shift);
-
-  return $self->build($factory, $arg);
-}
 
 sub rewrite_arg {
   my ($self, $arg) = @_;

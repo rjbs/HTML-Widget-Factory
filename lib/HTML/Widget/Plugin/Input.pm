@@ -63,17 +63,13 @@ sub _attribute_args { qw(type value size maxlength) }
 sub _boolean_args   { qw(disabled) }
 
 sub input {
-  my $self    = shift;
-  my $factory = shift;
-  my $arg     = $self->rewrite_arg(shift);
+  my ($self, $factory, $arg) = @_;
 
   $self->build($factory, $arg);
 }
 
 sub hidden {
-  my $self    = shift;
-  my $factory = shift;
-  my $arg     = $self->rewrite_arg(shift);
+  my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{type} = 'hidden';
 
