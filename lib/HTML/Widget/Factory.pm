@@ -64,6 +64,29 @@ sub new {
   bless {} => $class;
 }
 
+=head1 TODO
+
+=over
+
+=item * fixed_args for args that are fixed, like (type => 'checkbox')
+
+=item * a simple way to say "only include this output if you haven't before"
+
+This will make it easy to do JavaScript inclusions: if you've already made a
+calendar (or whatever) widget, don't bother including this hunk of JS, for
+example.
+
+=item * giving the constructor a data store
+
+Create a factory that has a CGI.pm object and let it default values to the
+param that matches the passed name.
+
+=item * include id attribute where needed
+
+=item * optional labels (before or after control, or possibly return a list)
+
+=back
+
 =head1 SEE ALSO
 
 =over
