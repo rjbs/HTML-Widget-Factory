@@ -55,6 +55,13 @@ series of spaces, if the value is defined.
 
 =cut
 
+=head2 C< rewrite_arg >
+
+The password plugin's rewrite_arg replaces any non-empty value with a string of
+spaces so that passwords are not inadvertantly sent as plain text.
+
+=cut
+
 sub rewrite_arg {
   my ($self, $arg) = @_;
 

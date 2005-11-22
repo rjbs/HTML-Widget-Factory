@@ -39,7 +39,7 @@ sub provided_widgets { qw(input hidden) }
 
 =head2 C< input >
 
-This method returns a select-from-list widget.
+This method returns a basic one-line text-entry widget.
 
 In addition to the generic L<HTML::Widget::Plugin> attributes, the following
 are valid arguments:
@@ -68,6 +68,15 @@ sub input {
   $self->build($factory, $arg);
 }
 
+=head2 C< hidden >
+
+This method returns a hidden input that is not displayed in the rendered HTML.
+Its arguments are the same as those to C<input>.
+
+This method may later be factored out into a plugin.
+
+=cut
+
 sub hidden {
   my ($self, $factory, $arg) = @_;
 
@@ -75,6 +84,16 @@ sub hidden {
 
   $self->build($factory, $arg);
 }
+
+=head2 C< build >
+
+  my $widget = $class->build($factory, $arg);
+
+This method does the actual construction of the input based on the args
+collected by the widget-constructing method.  It is primarily here for
+subclasses to exploit.
+
+=cut
 
 sub build {
   my ($self, $factory, $arg) = @_;

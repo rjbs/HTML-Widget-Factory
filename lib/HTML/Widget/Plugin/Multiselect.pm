@@ -69,6 +69,13 @@ sub multiselect {
   $self->build($factory, $arg);
 }
 
+=head2 C< make_option>
+
+This method, subclassed from the standard select widget, expects that C<$value>
+will be an array of selected values.
+
+=cut
+
 sub make_option {
   my ($self, $factory, $value, $name, $arg) = @_;
 

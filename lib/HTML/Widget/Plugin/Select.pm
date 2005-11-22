@@ -80,6 +80,15 @@ sub select {
   $self->build($factory, $arg);
 }
 
+=head2 C< build >
+
+ my $widget = $class->build($factory, \%arg)
+
+This method does the actual construction of the widget based on the args set up
+in the exported widget-constructing call.  It's here for subclasses to exploit.
+
+=cut
+
 sub build {
   my ($self, $factory, $arg) = @_;
   my $widget = HTML::Element->new('select');
@@ -102,6 +111,16 @@ sub build {
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
   return $widget->as_XML;
 }
+
+=head2 C< make_option >
+
+  my $option = $class->make_option($factory, $value, $name, $arg);
+
+This method constructs the HTML::Element option element that will represent one
+of the options that may be put into the select box.  This is here for
+subclasses to exploit.
+
+=cut
 
 sub make_option {
   my ($self, $factory, $value, $name, $arg) = @_;

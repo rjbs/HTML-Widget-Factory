@@ -17,8 +17,6 @@ can_ok($widget, 'radio');
     value   => 'luke_warm',
   });
 
-  warn $html;
-
   my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my @inputs = $tree->look_down(_tag => 'input');

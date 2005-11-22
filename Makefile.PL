@@ -11,14 +11,14 @@ WriteMakefile(
 		'HTML::Element'    => 0.00,
     'List::MoreUtils'  => 0.00,
 	},
-  test => {
-    TESTS => join " ", do {
-      my $w; $w = sub {
-        map { -d $_ ? $w->($_) : /\.t\Z/ ? $_ : () } grep { ! /^\./ } <$_[0]/*>
-      };
-      $w->("t");
-    }
-  },
+#  test => {
+#    TESTS => join " ", do {
+#      my $w; $w = sub {
+#        map { -d $_ ? $w->($_) : /\.t\Z/ ? $_ : () } grep { ! /^\./ } <$_[0]/*>
+#      };
+#      $w->("t");
+#    }
+#  },
 	dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
 	clean               => { FILES => 'HTML-Widget-Factory-*' },
 );
