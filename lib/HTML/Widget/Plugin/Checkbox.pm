@@ -55,7 +55,7 @@ Otherwise, it is not.
 
 =cut
 
-sub _attribute_args { qw(checked) }
+sub _attribute_args { qw(checked value) }
 sub _boolean_args   { qw(checked value) }
 
 sub checkbox {
