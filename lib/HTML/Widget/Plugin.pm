@@ -78,7 +78,7 @@ sub attribute_args {
   return uniq @attributes;
 }   
 
-sub _attribute_args { qw(name class) }
+sub _attribute_args { qw(id name class) }
 
 =head2 C< boolean_args >
 
