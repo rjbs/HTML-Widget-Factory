@@ -62,6 +62,7 @@ sub checkbox {
   my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{type} = 'checkbox';
+  $arg->{attr}{name} ||= $arg->{attr}{id};
 
   my $widget = HTML::Element->new('input');
 

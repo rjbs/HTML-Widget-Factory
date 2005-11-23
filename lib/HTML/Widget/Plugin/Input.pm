@@ -98,6 +98,8 @@ subclasses to exploit.
 sub build {
   my ($self, $factory, $arg) = @_;
 
+  $arg->{attr}{name} ||= $arg->{attr}{id};
+
   my $widget = HTML::Element->new('input');
 
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };

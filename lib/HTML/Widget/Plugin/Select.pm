@@ -91,6 +91,8 @@ in the exported widget-constructing call.  It's here for subclasses to exploit.
 
 sub build {
   my ($self, $factory, $arg) = @_;
+  $arg->{attr}{name} ||= $arg->{attr}{id};
+
   my $widget = HTML::Element->new('select');
 
   my @options;
