@@ -37,7 +37,7 @@ This plugin provides the following widgets: textarea
 
 sub provided_widgets { qw(textarea) }
 
-=head2 C< select >
+=head2 C< textarea >
 
 This method returns a text-entry area widget.
 
