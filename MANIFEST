@@ -3,6 +3,7 @@ lib/HTML/Widget/Factory.pm
 lib/HTML/Widget/Plugin.pm
 lib/HTML/Widget/Plugin/Checkbox.pm
 lib/HTML/Widget/Plugin/Input.pm
+lib/HTML/Widget/Plugin/Link.pm
 lib/HTML/Widget/Plugin/Multiselect.pm
 lib/HTML/Widget/Plugin/Password.pm
 lib/HTML/Widget/Plugin/Radio.pm
@@ -14,6 +15,7 @@ README
 t/basic.t
 t/checkbox.t
 t/input.t
+t/link.t
 t/multiselect.t
 t/password.t
 t/pod-coverage.t
