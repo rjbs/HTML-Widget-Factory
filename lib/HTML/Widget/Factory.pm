@@ -91,21 +91,25 @@ param that matches the passed name.
 
 =over
 
-=item L< HTML::Widget::Plugin >
+=item L<HTML::Widget::Plugin>
 
-=item L< HTML::Widget::Plugin::Input >
+=item L<HTML::Widget::Plugin::Input>
 
-=item L< HTML::Widget::Plugin::Password >
+=item L<HTML::Widget::Plugin::Link>
 
-=item L< HTML::Widget::Plugin::Select >
+=item L<HTML::Widget::Plugin::Password>
 
-=item L< HTML::Widget::Plugin::Multiselect >
+=item L<HTML::Widget::Plugin::Select>
 
-=item L< HTML::Widget::Plugin::Checkbox >
+=item L<HTML::Widget::Plugin::Multiselect>
 
-=item L< HTML::Widget::Plugin::Radio >
+=item L<HTML::Widget::Plugin::Checkbox>
 
-=item L< HTML::Element >
+=item L<HTML::Widget::Plugin::Radio>
+
+=item L<HTML::Widget::Plugin::Textarea>
+
+=item L<HTML::Element>
 
 =back
 
