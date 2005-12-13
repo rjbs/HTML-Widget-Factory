@@ -72,6 +72,7 @@ sub attribute_args {
   my @attributes;
 
   for ($class, Class::ISA::super_path($class)) {
+    next unless $_->can('_attribute_args');
     push @attributes, $_->_attribute_args(@_);
   }
 
@@ -96,7 +97,7 @@ sub boolean_args {
   my @attributes;
 
   for ($class, Class::ISA::super_path($class)) {
-    next unless $class->can('_boolean_args');
+    next unless $_->can('_boolean_args');
     push @attributes, $_->_boolean_args(@_);
   }
 
