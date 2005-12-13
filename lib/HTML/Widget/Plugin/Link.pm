@@ -60,7 +60,7 @@ This is the text of created link.  If no text is supplied, the href is used.
 
 =cut
 
-sub _attribute_args { qw(href id) }
+sub _attribute_args { qw(href class id) }
 
 sub link {
   my ($self, $factory, $arg) = @_;
