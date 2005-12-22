@@ -8,8 +8,10 @@ WriteMakefile(
 	VERSION_FROM        => 'lib/HTML/Widget/Factory.pm',
 	PL_FILES            => {},
 	PREREQ_PM => {
-		'HTML::Element'    => 0.00,
-    'List::MoreUtils'  => 0.00,
+		'HTML::Element'      => 0.00,
+    'List::MoreUtils'    => 0.00,
+    'UNIVERSAL::require' => 0.10,
+    'Module::Pluggable'  => 2.9,
 	},
 #  test => {
 #    TESTS => join " ", do {
