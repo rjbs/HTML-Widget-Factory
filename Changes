@@ -1,7 +1,7 @@
 Revision history for HTML-Widget-Factory
 
 0.03    2005-12-21
-        add prereqs
+        add prereqs (thanks to BSMITH for bug report)
         reenable taint mode in tests (thanks to newer M::Pluggable)
         for cumulative methods, skip classes that don't implement them
 
