@@ -1,4 +1,4 @@
-#!perl -T
+#!perl 
 use Test::More 'no_plan';
 use HTML::TreeBuilder;
 
@@ -100,4 +100,17 @@ can_ok($widget, 'select');
   my @selected = $select->look_down(sub { $_[0]->attr('selected') });
 
   is(@selected, 0, "we didn't pre-select anything");
+}
+
+{
+  # test exception on invalid value
+  eval { $widget->select({ options => [[1,1]], value => 2 }) };
+  like($@, qr/provided value/, "bad values throw exception");
+
+  my $html = eval {
+    $widget->select({ options => [[1,1]], value => 2, ignore_invalid => 1 });
+  };
+  ok(! $@, "...unless you pass ignore_invalid");
+
+  like($html, qr/select/, "and we got a html element back!");
 }

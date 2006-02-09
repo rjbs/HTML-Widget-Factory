@@ -102,7 +102,7 @@ sub build {
     @options = @{ $arg->{options} };
   }
 
-  $self->validate_value($arg->{value}, \@options);
+  $self->validate_value($arg->{value}, \@options) unless $arg->{ignore_invalid};
 
   for my $entry (@options) {
     my ($value, $name) = (ref $entry) ? @$entry : ($entry) x 2;
