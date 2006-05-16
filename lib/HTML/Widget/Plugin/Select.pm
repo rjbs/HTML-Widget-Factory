@@ -51,6 +51,11 @@ are valid arguments:
 If true, this option indicates that the select widget can't be changed by the
 user.
 
+=item ignore_invalid
+
+If this is given and true, an invalid value is ignored instead of throwing an
+exception.
+
 =item options
 
 This may be an arrayref of arrayrefs, each containing a value/name pair, or it
@@ -145,11 +150,17 @@ for an explanation of its default rules.
 sub validate_value {
   my ($class, $value, $options) = @_;
 
+  my @options = map { ref $_ ? $_->[0] : $_ } @$options;
   # maybe this should be configurable?
   if ($value) {
-    my $matches = grep { $value eq $_ } map { ref $_ ? $_->[0] : $_ } @$options;
-    Carp::croak "provided value not in given options" unless $matches;
-    Carp::croak "provided value matches more than one option" if $matches > 1;
+    my $matches = grep { $value eq $_ } @options;
+
+    if (not $matches) {
+      Carp::croak "provided value '$matches' not in given options: "
+                . join(' ', map { "'$_'" } @options);
+    } elsif ($matches > 1) {
+      Carp::croak "provided value '$matches' matches more than one option";
+    }
   }
 }
 
