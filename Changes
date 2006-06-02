@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.03_01 2006-06-02
+        add __plug_in to make subclassing easier
+
 0.03    2005-12-21
         add prereqs (thanks to BSMITH for bug report)
         reenable taint mode in tests (thanks to newer M::Pluggable)

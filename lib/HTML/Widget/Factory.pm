@@ -10,13 +10,13 @@ HTML::Widget::Factory - churn out HTML widgets
 
 =head1 VERSION
 
-version 0.03
+version 0.03_01
 
  $Id$
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.03_01';
 
 =head1 SYNOPSIS
 
@@ -39,13 +39,22 @@ form controls.
 
 =cut
 
-use Module::Pluggable search_path => [qw(HTML::Widget::Plugin)];
+use Module::Pluggable;
 use UNIVERSAL::require;
 
-for (__PACKAGE__->plugins) {
-  $_->require or die $@;
-  $_->import;
+sub __plug_in {
+  my $class = shift;
+  Module::Pluggable->import(@_);
+  for ($class->plugins) {
+    $_->require or die $@;
+    $_->import;
+  }
 }
+
+BEGIN {
+  __PACKAGE__->__plug_in(search_path => [qw(HTML::Widget::Plugin)]);
+}
+
 
 =head1 METHODS
 
