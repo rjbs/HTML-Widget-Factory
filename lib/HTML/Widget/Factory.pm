@@ -39,22 +39,12 @@ form controls.
 
 =cut
 
-use Module::Pluggable;
+use Module::Pluggable
+  search_path => [ qw(HTML::Widget::Plugin) ],
+  sub_name    => '_default_plugins';
+
+use Package::Generator;
 use UNIVERSAL::require;
-
-sub __plug_in {
-  my $class = shift;
-  Module::Pluggable->import(@_);
-  for ($class->plugins) {
-    $_->require or die $@;
-    $_->import;
-  }
-}
-
-BEGIN {
-  __PACKAGE__->__plug_in(search_path => [qw(HTML::Widget::Plugin)]);
-}
-
 
 =head1 METHODS
 
@@ -62,15 +52,37 @@ Most of the useful methods in an HTML::Widget::Factory object will be installed
 there by its plugins.  Consult the documentation for the HTML::Widget::Plugin
 modules.
 
-=head2 C< new >
+=head2 new
 
 This constructor returns a new widget factory.  It ignores all its arguments.
 
 =cut
 
+sub __new_class {
+  my ($class) = @_;
+
+  my $obj_class = Package::Generator->new_package({
+    base => "$class\::GENERATED",
+    isa  => $class,
+  });
+}
+
+my $_default_class;
+BEGIN {
+  $_default_class = __PACKAGE__->__new_class;
+
+  for my $plugin (__PACKAGE__->_default_plugins) {
+    $plugin->require or die $@;
+    $plugin->import({ into => $_default_class });
+  }
+}
+
 sub new {
   my ($class) = @_;
-  bless {} => $class;
+
+  my $obj_class = $class->__new_class;
+
+  bless {} => $obj_class;
 }
 
 =head1 TODO
