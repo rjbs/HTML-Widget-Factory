@@ -44,6 +44,7 @@ use Module::Pluggable
   sub_name    => '_default_plugins';
 
 use Package::Generator;
+use Package::Reaper;
 use UNIVERSAL::require;
 
 =head1 METHODS
@@ -67,22 +68,45 @@ sub __new_class {
   });
 }
 
-my $_default_class;
-BEGIN {
-  $_default_class = __PACKAGE__->__new_class;
+sub __mix_in {
+  my ($class, @plugins) = @_;
 
-  for my $plugin (__PACKAGE__->_default_plugins) {
+  for my $plugin (@plugins) {
     $plugin->require or die $@;
-    $plugin->import({ into => $_default_class });
+    $plugin->import({ into => $class });
   }
 }
 
+my @_default_plugins;
+my $_default_class;
+BEGIN {
+  @_default_plugins = __PACKAGE__->_default_plugins;
+
+  $_default_class = __PACKAGE__->__new_class;
+
+  $_default_class->__mix_in(@_default_plugins);
+}
+
 sub new {
-  my ($class) = @_;
+  my ($class, $arg) = @_;
+  $arg ||= {};
 
-  my $obj_class = $class->__new_class;
+  my $obj_class = $_default_class;
+  my $reaper;
 
-  bless {} => $obj_class;
+  if ($arg->{plugins} or $arg->{extra_plugins}) {
+    $obj_class = $class->__new_class;
+
+    my @plugins = $arg->{plugins} ? @{ $arg->{plugins} } : @_default_plugins;
+
+    push @plugins, @{ $arg->{extra_plugins} } if $arg->{extra_plugins};
+
+    $obj_class->__mix_in(@plugins);
+
+    $reaper = Package::Reaper->new($obj_class);
+  }
+
+  bless { ($reaper ? (reaper => $reaper) : ()) } => $obj_class;
 }
 
 =head1 TODO
@@ -146,3 +170,4 @@ same terms as perl itself.
 =cut
 
 1;
+

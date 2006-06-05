@@ -121,7 +121,7 @@ sub import {
   my ($class, $arg) = @_;
   $arg ||= {};
 
-  my $target = $arg->{into} = caller(0);
+  my $target = $arg->{into} ||= caller(0);
 
   my @widgets = $class->provided_widgets;
 
@@ -145,3 +145,4 @@ sub import {
 }
 
 1;
+
