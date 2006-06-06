@@ -10,17 +10,11 @@ WriteMakefile(
 	PREREQ_PM => {
 		'HTML::Element'      => 0.00,
     'List::MoreUtils'    => 0.00,
-    'UNIVERSAL::require' => 0.10,
     'Module::Pluggable'  => 2.9,
+    'Package::Generator' => 0.100,
+    'Package::Reaper'    => 0.100,
+    'UNIVERSAL::require' => 0.10,
 	},
-#  test => {
-#    TESTS => join " ", do {
-#      my $w; $w = sub {
-#        map { -d $_ ? $w->($_) : /\.t\Z/ ? $_ : () } grep { ! /^\./ } <$_[0]/*>
-#      };
-#      $w->("t");
-#    }
-#  },
 	dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
 	clean               => { FILES => 'HTML-Widget-Factory-*' },
 );
