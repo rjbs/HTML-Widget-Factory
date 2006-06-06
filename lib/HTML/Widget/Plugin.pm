@@ -18,7 +18,7 @@ version 0.01
 
 our $VERSION = '0.01';
 
-use Carp;
+use Carp ();
 use Class::ISA;
 use List::MoreUtils qw(uniq);
 
@@ -114,7 +114,8 @@ names which should be imported from the plugin into HTML::Widget::Factory.
 =cut
 
 sub provided_widgets {
-  croak "something called abstract provided_widgets in HTML::Widget::Plugin";
+  Carp::croak
+    "something called abstract provided_widgets in HTML::Widget::Plugin";
 }
 
 sub import {
@@ -126,13 +127,14 @@ sub import {
   my @widgets = $class->provided_widgets;
 
   for my $widget (@widgets) {
-    my $install_to = $widget;;
+    my $install_to = $widget;
     ($widget, $install_to) = @$widget if ref $widget;
 
-    croak "$target can already provide widget '$widget'"
+    Carp::croak "$target can already provide widget '$widget'"
       if $target->can($install_to);
   
-    croak "$class claims to provide widget '$widget' but has no such method"
+    Carp::croak
+      "$class claims to provide widget '$widget' but has no such method"
       unless $class->can($widget);
 
     no strict 'refs';
