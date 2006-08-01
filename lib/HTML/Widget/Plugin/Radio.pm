@@ -79,11 +79,14 @@ sub radio {
   $self->validate_value($arg->{value}, $arg->{options});
 
   for my $option (@{ $arg->{options} }) {
+    my ($value, $text) = (ref $option) ? (@$option) : (($option) x 2);
+
     my $widget = HTML::Element->new('input', type => 'radio');
     $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
-    $widget->attr(value => $option);
+    $widget->attr(value => $value);
+    $widget->push_content(HTML::Element->new('~literal', text => $text));
 
-    $widget->attr(on => 'on') if $arg->{value} and $arg->{value} eq $option;
+    $widget->attr(on => 'on') if $arg->{value} and $arg->{value} eq $value;
 
     push @widgets, $widget;
   }
@@ -101,11 +104,17 @@ for an explanation of its default rules.
 sub validate_value {
   my ($class, $value, $options) = @_;
 
+  my @options = map { ref $_ ? $_->[0] : $_ } @$options;
   # maybe this should be configurable?
   if ($value) {
-    my $matches = grep { $value eq $_ } @$options;
-    Carp::croak "provided value not in given options" unless $matches;
-    Carp::croak "provided value matches more than one option" if $matches > 1;
+    my $matches = grep { $value eq $_ } @options;
+
+    if (not $matches) {
+      Carp::croak "provided value '$matches' not in given options: "
+                . join(' ', map { "'$_'" } @options);
+    } elsif ($matches > 1) {
+      Carp::croak "provided value '$matches' matches more than one option";
+    }
   }
 }
 
