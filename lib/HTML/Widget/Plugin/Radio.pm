@@ -77,6 +77,7 @@ sub radio {
   my @widgets;
 
   $self->validate_value($arg->{value}, $arg->{options});
+  $arg->{attr}{name} ||= $arg->{attr}{id};
 
   for my $option (@{ $arg->{options} }) {
     my ($value, $text) = (ref $option) ? (@$option) : (($option) x 2);
