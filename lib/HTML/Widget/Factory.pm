@@ -10,13 +10,13 @@ HTML::Widget::Factory - churn out HTML widgets
 
 =head1 VERSION
 
-version 0.04
+version 0.04_01
 
  $Id$
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.04_01';
 
 =head1 SYNOPSIS
 
@@ -80,7 +80,10 @@ sub __mix_in {
   my ($class, @plugins) = @_;
 
   for my $plugin (@plugins) {
-    $plugin->require or die $@;
+    unless ($plugin =~ /::(__)?GENERATED\1::/ and
+              Package::Generator->package_exists($plugin)) {
+      $plugin->require or die $@;
+    }
     $plugin->import({ into => $class });
   }
 }

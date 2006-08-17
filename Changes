@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.04_01 2006-08-17
+        skip ->require on (__)?GENERATED(__)? plugin classes
+
 0.04    2006-06-06
         implement per-factory classes
 
