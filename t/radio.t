@@ -33,7 +33,7 @@ can_ok($widget, 'radio');
     );
   }
   
-  my @selected = $tree->look_down(sub { $_[0]->attr('on') });
+  my @selected = $tree->look_down(sub { $_[0]->attr('checked') });
 
   is(@selected, 1, "only one option is selected");
 
@@ -73,7 +73,7 @@ can_ok($widget, 'radio');
     );
   }
   
-  my @selected = $tree->look_down(sub { $_[0]->attr('on') });
+  my @selected = $tree->look_down(sub { $_[0]->attr('checked') });
 
   is(@selected, 1, "only one option is selected");
 

@@ -87,7 +87,8 @@ sub radio {
     $widget->attr(value => $value);
     $widget->push_content(HTML::Element->new('~literal', text => $text));
 
-    $widget->attr(on => 'on') if $arg->{value} and $arg->{value} eq $value;
+    $widget->attr(checked => 'checked')
+      if $arg->{value} and $arg->{value} eq $value;
 
     push @widgets, $widget;
   }
