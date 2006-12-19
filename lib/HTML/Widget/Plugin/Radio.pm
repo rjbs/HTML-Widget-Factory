@@ -80,10 +80,12 @@ sub radio {
   $arg->{attr}{name} ||= $arg->{attr}{id};
 
   for my $option (@{ $arg->{options} }) {
-    my ($value, $text) = (ref $option) ? (@$option) : (($option) x 2);
+    my ($value, $text, $id) = (ref $option) ? (@$option) : (($option) x 2);
 
     my $widget = HTML::Element->new('input', type => 'radio');
     $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
+    # XXX document
+    $widget->attr(id => $id) if $id;
     $widget->attr(value => $value);
     $widget->push_content(HTML::Element->new('~literal', text => $text));
 
@@ -92,6 +94,9 @@ sub radio {
 
     push @widgets, $widget;
   }
+
+  # XXX document
+  return @widgets if wantarray and $arg->{parts};
 
   return join '', map { $_->as_XML } @widgets;
 }
