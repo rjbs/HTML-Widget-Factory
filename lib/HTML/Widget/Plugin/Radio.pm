@@ -117,10 +117,10 @@ sub validate_value {
     my $matches = grep { $value eq $_ } @options;
 
     if (not $matches) {
-      Carp::croak "provided value '$matches' not in given options: "
+      Carp::croak "provided value '$value' not in given options: "
                 . join(' ', map { "'$_'" } @options);
     } elsif ($matches > 1) {
-      Carp::croak "provided value '$matches' matches more than one option";
+      Carp::croak "provided value '$value' matches more than one option";
     }
   }
 }
