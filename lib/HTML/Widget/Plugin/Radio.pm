@@ -51,6 +51,11 @@ are valid arguments:
 If true, this option indicates that the select widget can't be changed by the
 user.
 
+=item ignore_invalid
+
+If this is given and true, an invalid value is ignored instead of throwing an
+exception.
+
 =item options
 
 This option must be a reference to an array of allowed values, each of which
@@ -76,7 +81,9 @@ sub radio {
 
   my @widgets;
 
-  $self->validate_value($arg->{value}, $arg->{options});
+  $self->validate_value($arg->{value}, $arg->{options})
+    unless $arg->{ignore_invalid};
+
   $arg->{attr}{name} ||= $arg->{attr}{id};
 
   for my $option (@{ $arg->{options} }) {
