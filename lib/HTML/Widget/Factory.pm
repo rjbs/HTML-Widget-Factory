@@ -10,13 +10,13 @@ HTML::Widget::Factory - churn out HTML widgets
 
 =head1 VERSION
 
-version 0.04_02
+version 0.050
 
  $Id$
 
 =cut
 
-our $VERSION = '0.04_02';
+our $VERSION = '0.050';
 
 =head1 SYNOPSIS
 
@@ -173,9 +173,11 @@ param that matches the passed name.
 
 Ricardo SIGNES <C<rjbs @ cpan.org>>
 
+Development was sponsored by Listbox and Pobox between 2005 and 2007.
+
 =head1 COPYRIGHT
 
-Copyright (C) 2005-2006, Ricardo SIGNES.  This is free software, released under
+Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
 the same terms as perl itself.
 
 =cut
