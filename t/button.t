@@ -12,9 +12,9 @@ can_ok($widget, 'button');
 
 { # make a button
   my $html = $widget->button({
-    id      => 'some_button',
-    content => "This is right & proper.",
-    type    => 'submit',
+    id   => 'some_button',
+    text => "This is right & proper.",
+    type => 'submit',
   });
 
   like($html, qr/right &\S+; proper/, 'html entites escaped in content');
@@ -34,10 +34,9 @@ can_ok($widget, 'button');
 
 { # make a button
   my $html = $widget->button({
-    id      => 'misc_button',
-    content => '<img src="Foo" />',
-    type    => 'submit',
-    literal_content => 1,
+    id   => 'misc_button',
+    html => '<img src="Foo" />',
+    type => 'submit',
   });
 
   like($html, qr/<img/, 'html entites not escaped with literal_content');

@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.056   2007-02-28
+        change Button "content" arg to text/html, to match Link
+
 0.055   2007-02-28
         add Submit, Image, and Button plugins
         allow html instead of link text

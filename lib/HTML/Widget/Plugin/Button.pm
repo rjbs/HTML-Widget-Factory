@@ -11,13 +11,13 @@ HTML::Widget::Plugin::Button - a button for clicking
 
 =head1 VERSION
 
-version 0.055
+version 0.056
 
  $Id$
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.056';
 
 =head1 DESCRIPTION
 
@@ -46,15 +46,13 @@ are valid arguments:
 
 =over
 
-=item content
+=item text
 
-This is the content of the button element, to be displayed on the button's
-face.
+=item html
 
-=item literal_content
-
-If true, this argument indicates that the given content should not be subject
-to escaping.
+One of these options may be provided.  If text is provided, it is used as the
+content of the button, after being entity encoded.  If html is provided, it is
+used as the content of the button with no encoding performed.
 
 =item type
 
@@ -99,17 +97,23 @@ sub build {
   $arg->{attr}{name} ||= $arg->{attr}{id};
   $arg->{attr}{type} ||= 'button';
 
-  my $widget = HTML::Element->new('button');
-
   Carp::croak "invalid button type: $arg->{attr}{type}"
     unless $self->__is_valid_type($arg->{attr}{type});
 
+  Carp::croak "text and html arguments for link widget are mutually exclusive"
+    if $arg->{text} and $arg->{html};
+
+  my $widget = HTML::Element->new('button');
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
 
-  my $content = $arg->{content} || 'Button';
-
-  $content = HTML::Element->new('~literal' => text => $content)
-    if $arg->{literal_content};
+  my $content;
+  if ($arg->{html}) {
+    $content = ref $arg->{html}
+             ? $arg->{html}
+             : HTML::Element->new('~literal' => text => $arg->{html});
+  } else {
+    $content = $arg->{text} || ucfirst lc $arg->{attr}{type};;
+  }
 
   $widget->push_content($content);
 
