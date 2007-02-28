@@ -11,13 +11,13 @@ HTML::Widget::Plugin::Image - an image object
 
 =head1 VERSION
 
-version 0.010
+version 0.055
 
  $Id: /my/icg/widget/trunk/lib/HTML/Widget/Plugin/Input.pm 16769 2005-11-29T17:50:44.157832Z rjbs  $
 
 =cut
 
-our $VERSION = '0.010';
+our $VERSION = '0.055';
 
 =head1 DESCRIPTION
 

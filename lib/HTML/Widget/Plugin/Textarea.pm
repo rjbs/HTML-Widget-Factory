@@ -11,13 +11,13 @@ HTML::Widget::Plugin::Textarea - a widget for a large text entry box
 
 =head1 VERSION
 
-version 0.01
+version 0.055
 
  $Id: /my/icg/widget/trunk/lib/HTML/Widget/Plugin/Select.pm 16769 2005-11-29T17:50:44.157832Z rjbs  $
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.055';
 
 =head1 DESCRIPTION
 

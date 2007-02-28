@@ -11,13 +11,13 @@ HTML::Widget::Plugin::Password - for SECRET input
 
 =head1 VERSION
 
-version 0.01
+version 0.055
 
  $Id$
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.055';
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,11 @@
 Revision history for HTML-Widget-Factory
 
+0.055   2007-02-28
+        add Submit, Image, and Button plugins
+        allow html instead of link text
+        plans for all test files
+        a few other little tweaks
+
 0.050   2007-02-24
         allow return of individual radio widget parts
         allow per-radio-option ids
