@@ -11,13 +11,13 @@ HTML::Widget::Plugin::Link - a hyperlink
 
 =head1 VERSION
 
-version 0.01
+version 0.020
 
  $Id: /my/icg/widget/trunk/lib/HTML/Widget/Plugin/Input.pm 16769 2005-11-29T17:50:44.157832Z rjbs  $
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.020';
 
 =head1 DESCRIPTION
 
@@ -70,11 +70,22 @@ sub link {
   Carp::croak "can't create a link without an href"
     unless $arg->{attr}{href};
 
+  Carp::croak "text and html arguments for link widget are mutually exclusive"
+    if $arg->{text} and $arg->{html};
+
   my $widget = HTML::Element->new('a');
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
 
-  my $text = $arg->{text} || $arg->{attr}{href};
-  $widget->push_content($text);
+  my $content;
+  if ($arg->{html}) {
+    $content = ref $arg->{html}
+             ? $arg->{html}
+             : HTML::Element->new('~literal' => text => $arg->{html});
+  } else {
+    $content = $arg->{text} || $arg->{attr}{href};
+  }
+
+  $widget->push_content($content);
 
   return $widget->as_XML;
 }
