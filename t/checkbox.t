@@ -1,5 +1,5 @@
 #!perl 
-use Test::More 'no_plan';
+use Test::More tests => 13;
 use HTML::TreeBuilder;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }

@@ -42,7 +42,7 @@ It moves attributes listed in the results of the C<attribute_args> method.
 
 sub rewrite_arg {
   my ($class, $given_arg) = @_;
-  my $arg = { %$given_arg };
+  my $arg = { $given_arg ? %$given_arg : () };
 
   my %bool = map { $_ => 1 } $class->boolean_args;
 

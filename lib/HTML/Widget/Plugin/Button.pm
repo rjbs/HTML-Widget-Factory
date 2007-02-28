@@ -51,6 +51,11 @@ are valid arguments:
 This is the content of the button element, to be displayed on the button's
 face.
 
+=item literal_content
+
+If true, this argument indicates that the given content should not be subject
+to escaping.
+
 =item type
 
 This is the type of input button to be created.  Valid types are button,
@@ -100,11 +105,13 @@ sub build {
     unless $self->__is_valid_type($arg->{attr}{type});
 
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
-  $widget->push_content(
-    HTML::Element->new(
-      '~literal' => text => $arg->{content} || 'Button'
-    )
-  );
+
+  my $content = $arg->{content} || 'Button';
+
+  $content = HTML::Element->new('~literal' => text => $content)
+    if $arg->{literal_content};
+
+  $widget->push_content($content);
 
   return $widget->as_XML;
 }
