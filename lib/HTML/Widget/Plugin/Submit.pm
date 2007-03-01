@@ -24,10 +24,6 @@ our $VERSION = '0.055';
 This plugin provide a simple submit plugin, which returns an input element of
 type submit.
 
-=cut
-
-use HTML::Element;
-
 =head1 METHODS
 
 =head2 C< provided_widgets >
@@ -55,6 +51,8 @@ as the text for the label on its face.
 =back
 
 =cut
+
+use HTML::Element;
 
 sub submit {
   my ($self, $factory, $arg) = @_;

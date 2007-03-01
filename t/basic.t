@@ -1,22 +1,22 @@
-#!perl 
-use Test::More tests => 4;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 2;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'input');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a super-simple input field
-  my $input = $widget->input({
+  my ($html, $tree) = widget(input => {
     name  => 'flavor',
     value => 'minty',
   });
 
   like(
-    $input,
+    $html,
     qr/input.+flavor/,
     "input looks sort of like what we asked for"
   );

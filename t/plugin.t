@@ -1,9 +1,8 @@
-#!perl 
-use Test::More tests => 9;
-use HTML::TreeBuilder;
-
+#!perl -T
 use strict;
 use warnings;
+
+use Test::More tests => 9;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 

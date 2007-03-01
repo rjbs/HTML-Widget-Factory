@@ -1,22 +1,19 @@
-#!perl 
-use Test::More tests => 7;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 5;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'password');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a password-entry widget
-  my $html = $widget->password({
+  my ($html, $tree) = widget(password => {
     name  => 'pw',
     value => 'minty',
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($input) = $tree->look_down(_tag => 'input');
 

@@ -23,10 +23,6 @@ our $VERSION = '0.055';
 
 This plugin provides a select-from-list widget.
 
-=cut
-
-use HTML::Element;
-
 =head1 METHODS
 
 =head2 C< provided_widgets >
@@ -76,6 +72,8 @@ has this value.
 
 =cut
 
+use HTML::Element;
+
 sub _attribute_args { qw(disabled) }
 sub _boolean_args   { qw(disabled) }
 
@@ -96,7 +94,7 @@ in the exported widget-constructing call.  It's here for subclasses to exploit.
 
 sub build {
   my ($self, $factory, $arg) = @_;
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+  $arg->{attr}{name} = $arg->{attr}{id} unless $arg->{attr}{name};
 
   my $widget = HTML::Element->new('select');
 
@@ -135,7 +133,7 @@ sub make_option {
   my $option = HTML::Element->new('option', value => $value);
      $option->push_content($name);
      $option->attr(selected => 'selected')
-       if $arg->{value} and $value and $arg->{value} eq $value;
+       if $arg->{value} and defined $value and $arg->{value} eq $value;
 
   return $option;
 }
@@ -170,8 +168,8 @@ Ricardo SIGNES <C<rjbs @ cpan.org>>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
+Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
+the same terms as perl itself.
 
 =cut
 

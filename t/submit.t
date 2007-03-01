@@ -1,19 +1,16 @@
-#!perl 
-use Test::More tests => 6;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 4;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'submit');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a super-simple submit input
-  my $html = $widget->submit;
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
+  my ($html, $tree) = widget('submit');
   
   my ($input) = $tree->look_down(_tag => 'input');
 
@@ -21,9 +18,7 @@ can_ok($widget, 'submit');
 }
 
 { # make a super-simple input field
-  my $html = $widget->submit({ value => 'Click Me!' });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
+  my ($html, $tree) = widget(submit => { value => 'Click Me!' });
   
   my ($input) = $tree->look_down(_tag => 'input');
 

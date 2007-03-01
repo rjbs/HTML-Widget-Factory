@@ -1,23 +1,20 @@
-#!perl 
-use Test::More tests => 7;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 5;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'image');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a super-simple image
-  my $html = $widget->image({
+  my ($html, $tree) = widget(image => {
     href => 'http://www.example.com/foo.jpg',
     alt  => "photo of a foo",
   });
 
-  my $tree = HTML::TreeBuilder->new_from_content($html);
-  
   my ($image) = $tree->look_down(_tag => 'img');
 
   isa_ok($image, 'HTML::Element');

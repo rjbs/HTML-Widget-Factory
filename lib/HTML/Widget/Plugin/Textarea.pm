@@ -23,10 +23,6 @@ our $VERSION = '0.055';
 
 This plugin provides a text-entry area widget.
 
-=cut
-
-use HTML::Element;
-
 =head1 METHODS
 
 =head2 C< provided_widgets >
@@ -58,6 +54,8 @@ If this argument is given, the widget will be initially populated by its value.
 
 =cut
 
+use HTML::Element;
+
 sub _attribute_args { qw(disabled id) }
 sub _boolean_args   { qw(disabled) }
 
@@ -81,8 +79,8 @@ Ricardo SIGNES <C<rjbs @ cpan.org>>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
+Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
+the same terms as perl itself.
 
 =cut
 

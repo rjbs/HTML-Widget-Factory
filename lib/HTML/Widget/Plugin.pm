@@ -141,10 +141,21 @@ sub import {
     *{$target . '::' . $install_to} = sub {
       my ($self, $given_arg) = @_;
       my $arg = $class->rewrite_arg($given_arg);
+
       $class->$widget($self, $arg);
     }
   }
 }
 
-1;
+=head1 AUTHOR
 
+Ricardo SIGNES <C<rjbs @ cpan.org>>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
+the same terms as perl itself.
+
+=cut
+
+1;

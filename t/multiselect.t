@@ -1,24 +1,21 @@
-#!perl 
-use Test::More tests => 9;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 7;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'multiselect');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a select field with hash options
-  my $html = $widget->multiselect({
+  my ($html, $tree) = widget(multiselect => {
     options => [ qw(portable rechargeable delicious diet) ],
     name    => 'options',
     value   => [ qw(diet portable) ],
     size    => 5,
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
 
   my ($select) = $tree->look_down(_tag => 'select');
 

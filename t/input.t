@@ -1,24 +1,20 @@
-#!perl 
-use Test::More tests => 12;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 9;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'input');
-can_ok($widget, 'hidden');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a super-simple input field
-  my $html = $widget->input({
+  my ($html, $tree) = widget(input => {
     name  => 'flavor',
     value => 'minty',
     class => 'orange',
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($input) = $tree->look_down(_tag => 'input');
 
@@ -44,12 +40,10 @@ can_ok($widget, 'hidden');
 }
 
 { # make a hidden input field
-  my $html = $widget->hidden({
-    name  => 'secret',
+  my ($html, $tree) = widget(hidden => {
+    id    => 'secret',
     value => '123-432-345-654',
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($input) = $tree->look_down(_tag => 'input');
 

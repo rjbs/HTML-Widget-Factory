@@ -138,8 +138,8 @@ Ricardo SIGNES <C<rjbs @ cpan.org>>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2005, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
+Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
+the same terms as perl itself.
 
 =cut
 

@@ -1,23 +1,20 @@
-#!perl 
-use Test::More tests => 11;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 9;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'link');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a super-simple link
-  my $html = $widget->link({
+  my ($html, $tree) = widget(link => {
     href => 'http://rjbs.manxome.org/',
     text => "ricardo's home page",
   });
 
-  my $tree = HTML::TreeBuilder->new_from_content($html);
-  
   my ($link) = $tree->look_down(_tag => 'a');
 
   isa_ok($link, 'HTML::Element');
@@ -36,12 +33,10 @@ can_ok($widget, 'link');
 }
 
 { # make a link with html inside
-  my $html = $widget->link({
+  my ($html, $tree) = widget(link => {
     href => 'http://rjbs.manxome.org/',
     html => "<img src='/jpg.jpg'>",
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($link) = $tree->look_down(_tag => 'a');
 

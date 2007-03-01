@@ -1,23 +1,20 @@
-#!perl 
-use Test::More tests => 22;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 20;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'radio');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a set of radio buttons
-  my $html = $widget->radio({
+  my ($html, $tree) = widget(radio => {
     options => [ qw(hot cold luke_warm) ],
     name    => 'temperature',
     value   => 'luke_warm',
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my @inputs = $tree->look_down(_tag => 'input');
 
@@ -45,7 +42,7 @@ can_ok($widget, 'radio');
 }
 
 { # make a set of radio buttons
-  my $html = $widget->radio({
+  my ($html, $tree) = widget(radio => {
     options => [
       [ hot  => 'HOT!',  ],
       [ cold => 'COLD!<br />', ],
@@ -56,8 +53,6 @@ can_ok($widget, 'radio');
   });
 
   like($html, qr/SPIT IT OUT!/, "radio label used");
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my @inputs = $tree->look_down(_tag => 'input');
 

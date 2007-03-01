@@ -1,22 +1,19 @@
-#!perl 
-use Test::More tests => 13;
-use HTML::TreeBuilder;
+#!perl -T
+use strict;
+use warnings;
+
+use Test::More tests => 11;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
-my $widget = HTML::Widget::Factory->new;
-
-isa_ok($widget, 'HTML::Widget::Factory');
-
-can_ok($widget, 'checkbox');
+use lib 't/lib';
+use Test::WidgetFactory;
 
 { # make a super-simple checkbox widget
-  my $html = $widget->checkbox({
+  my ($html, $tree) = widget(checkbox => {
     name    => 'flavor',
     checked => 'minty',
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($checkbox) = $tree->look_down(_tag => 'input');
 
@@ -47,12 +44,10 @@ can_ok($widget, 'checkbox');
 }
 
 { # use value instead of checked
-  my $html = $widget->checkbox({
+  my ($html, $tree) = widget(checkbox => {
     name  => 'flavor',
     value => 'minty',
   });
-
-  my $tree = HTML::TreeBuilder->new_from_content($html);
   
   my ($checkbox) = $tree->look_down(_tag => 'input');
 
