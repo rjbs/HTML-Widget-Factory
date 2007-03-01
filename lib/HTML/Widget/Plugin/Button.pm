@@ -89,6 +89,8 @@ subclasses to exploit.
 my %TYPES = map { $_ => 1 } qw(button reset submit);
 sub __is_valid_type {
   my ($self, $type) = @_;
+
+  return exists $TYPES{ $type };
 }
 
 sub build {
@@ -112,7 +114,9 @@ sub build {
              ? $arg->{html}
              : HTML::Element->new('~literal' => text => $arg->{html});
   } else {
-    $content = $arg->{text} || ucfirst lc $arg->{attr}{type};;
+    $content = defined $arg->{text}
+             ? $arg->{text}
+             : ucfirst lc $arg->{attr}{type};
   }
 
   $widget->push_content($content);
