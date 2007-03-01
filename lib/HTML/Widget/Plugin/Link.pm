@@ -82,7 +82,7 @@ sub link {
              ? $arg->{html}
              : HTML::Element->new('~literal' => text => $arg->{html});
   } else {
-    $content = $arg->{text} || $arg->{attr}{href};
+    $content = defined $arg->{text} ? $arg->{text} : $arg->{attr}{href};
   }
 
   $widget->push_content($content);

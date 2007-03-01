@@ -119,8 +119,8 @@ sub validate_value {
   my ($class, $value, $options) = @_;
 
   my @options = map { ref $_ ? $_->[0] : $_ } @$options;
-  # maybe this should be configurable?
-  if ($value) {
+
+  if (defined $value) {
     my $matches = grep { $value eq $_ } @options;
 
     if (not $matches) {

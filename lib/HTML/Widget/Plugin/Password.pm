@@ -69,7 +69,8 @@ sub rewrite_arg {
 
   $arg->{attr}{type} = "password";
 
-  $arg->{attr}{value} &&= q{ } x 8;
+  $arg->{attr}{value} = q{ } x 8
+    if defined $arg->{attr}{value} and length $arg->{attr}{value};
 
   return $arg;
 }

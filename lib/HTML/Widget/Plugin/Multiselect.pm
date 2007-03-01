@@ -98,6 +98,7 @@ sub validate_value {
   my ($class, $values, $options) = @_;
 
   $values = [ $values ] unless ref $values;
+  return unless grep { defined } @$values;
 
   for my $value (@$values) {
     my $matches = grep { $value eq $_ } map { ref $_ ? $_->[0] : $_ } @$options;

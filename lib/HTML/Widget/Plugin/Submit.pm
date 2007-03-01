@@ -57,7 +57,7 @@ use HTML::Element;
 sub submit {
   my ($self, $factory, $arg) = @_;
 
-  $arg->{attr}{type} ||= 'submit';
+  $arg->{attr}{type} = 'submit';
 
   # I suppose I could carp, here, if the type is altered, but... it's your
   # foot, shoot it if you want. -- rjbs, 2007-02-28]
