@@ -84,7 +84,7 @@ sub radio {
   $self->validate_value($arg->{value}, $arg->{options})
     unless $arg->{ignore_invalid};
 
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
 
   for my $option (@{ $arg->{options} }) {
     my ($value, $text, $id) = (ref $option) ? (@$option) : (($option) x 2);

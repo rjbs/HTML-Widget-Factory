@@ -62,7 +62,7 @@ sub _boolean_args   { qw(disabled) }
 sub textarea {
   my ($self, $factory, $arg) = @_;
 
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
 
   my $widget = HTML::Element->new('textarea');
 

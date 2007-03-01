@@ -69,10 +69,10 @@ sub image {
     Carp::croak "don't provide both href and src for image widget";
   }
 
-  $arg->{attr}{src} ||= $arg->{href};
+  $arg->{attr}{src} = $arg->{href} if not defined $arg->{attr}{src};
 
   Carp::croak "can't create an image without a src"
-    unless $arg->{attr}{src};
+    unless defined $arg->{attr}{src};
 
   my $widget = HTML::Element->new('img');
   $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };

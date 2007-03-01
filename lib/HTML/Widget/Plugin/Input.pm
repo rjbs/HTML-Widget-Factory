@@ -98,7 +98,7 @@ subclasses to exploit.
 sub build {
   my ($self, $factory, $arg) = @_;
 
-  $arg->{attr}{name} = $arg->{attr}{id} unless exists $arg->{attr}{name};
+  $arg->{attr}{name} = $arg->{attr}{id} unless defined $arg->{attr}{name};
 
   my $widget = HTML::Element->new('input');
 

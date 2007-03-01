@@ -94,7 +94,7 @@ sub __is_valid_type {
 sub build {
   my ($self, $factory, $arg) = @_;
 
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
   $arg->{attr}{type} ||= 'button';
 
   Carp::croak "invalid button type: $arg->{attr}{type}"

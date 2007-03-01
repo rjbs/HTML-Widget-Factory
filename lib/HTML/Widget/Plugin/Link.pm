@@ -65,7 +65,7 @@ sub _attribute_args { qw(href class id) }
 sub link {
   my ($self, $factory, $arg) = @_;
 
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
 
   Carp::croak "can't create a link without an href"
     unless $arg->{attr}{href};

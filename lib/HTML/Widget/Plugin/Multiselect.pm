@@ -60,7 +60,7 @@ sub _attribute_args { qw(size) }
 sub multiselect {
   my ($self, $factory, $arg) = @_;
 
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
 
   if ($arg->{values}) {
     $arg->{value} = delete $arg->{values};
