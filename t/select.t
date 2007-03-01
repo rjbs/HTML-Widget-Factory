@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 18;
+use Test::More tests => 23;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -12,6 +12,7 @@ use Test::WidgetFactory;
 { # make a select field with AoA options
   my ($html, $tree) = widget(select => {
     options => [
+      [ ''    => 'Flavorless',     ],
       [ minty => 'Peppermint',     ],
       [ perky => 'Fresh and Warm', ],
       [ super => 'Red and Blue',   ],
@@ -29,6 +30,16 @@ use Test::WidgetFactory;
     'flavor',
     "got correct input name",
   );
+
+  my @options = $select->look_down(_tag => 'option');
+
+  is(@options, 4, "there are four options listed");
+
+  my @selected = $select->look_down(selected => 'selected');
+
+  is(@selected, 1, "only one is selected");
+
+  is($selected[0]->attr('value'), 'minty', "the correct one is selected");
 }
 
 { # make a select field with hash options
@@ -140,4 +151,34 @@ use Test::WidgetFactory;
   is($@, '', "...unless you pass ignore_invalid");
 
   like($html, qr/select/, "and we got a html element back!");
+}
+
+{
+  # test exception on undef value
+  eval {
+    widget(select => {
+      options => [
+        [ undef,   'Peppermint',     ],
+        [ perky => 'Fresh and Warm', ],
+        [ super => 'Red and Blue',   ],
+      ],
+      name  => 'flavor',
+      value => 'minty',
+    });
+  };
+
+  like($@, qr/undefined value/, "you can't pass undef as a value (AOA)");
+}
+
+{
+  # test exception on undef value
+  eval {
+    widget(select => {
+      options => [ undef, 1, 2, 3 ],
+      name    => 'flavor',
+      value   => 'minty',
+    });
+  };
+
+  like($@, qr/undefined value/, "you can't pass undef as a value (aref)");
 }

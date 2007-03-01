@@ -103,6 +103,8 @@ sub build {
     @options = map { [ $_, $arg->{options}{$_} ] } keys %{ $arg->{options} };
   } else {
     @options = @{ $arg->{options} };
+    Carp::croak "undefined value passed to select widget"
+      if grep { not(defined $_) or ref $_ and not defined $_->[0] } @options;
   }
 
   $self->validate_value($arg->{value}, \@options) unless $arg->{ignore_invalid};
@@ -133,7 +135,7 @@ sub make_option {
   my $option = HTML::Element->new('option', value => $value);
      $option->push_content($name);
      $option->attr(selected => 'selected')
-       if $arg->{value} and defined $value and $arg->{value} eq $value;
+       if defined $arg->{value} and $arg->{value} eq $value;
 
   return $option;
 }

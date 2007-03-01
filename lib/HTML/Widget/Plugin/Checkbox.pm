@@ -61,10 +61,11 @@ sub _boolean_args   { qw(checked value) }
 sub checkbox {
   my ($self, $factory, $arg) = @_;
 
-  my $value = delete $arg->{attr}{value};
-  $arg->{attr}{checked} ||= $value;
   $arg->{attr}{type} = 'checkbox';
-  $arg->{attr}{name} ||= $arg->{attr}{id};
+
+  my $value = delete $arg->{attr}{value};
+  $arg->{attr}{checked} = $value if not defined $arg->{attr}{checked};;
+  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
 
   my $widget = HTML::Element->new('input');
 

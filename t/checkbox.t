@@ -43,9 +43,9 @@ use Test::WidgetFactory;
   );
 }
 
-{ # use value instead of checked
+{ # use value instead of checked, id instead of name
   my ($html, $tree) = widget(checkbox => {
-    name  => 'flavor',
+    id    => 'flavor',
     value => 'minty',
   });
   
