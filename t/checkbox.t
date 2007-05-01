@@ -12,7 +12,8 @@ use Test::WidgetFactory;
 { # make a super-simple checkbox widget
   my ($html, $tree) = widget(checkbox => {
     name    => 'flavor',
-    checked => 'minty',
+    value   => 'minty',
+    checked => 1,
   });
   
   my ($checkbox) = $tree->look_down(_tag => 'input');
@@ -26,6 +27,12 @@ use Test::WidgetFactory;
   );
 
   is(
+    $checkbox->attr('value'),
+    'minty',
+    "it's got the right value!",
+  );
+
+  is(
     $checkbox->attr('type'),
     'checkbox',
     "it's a checkbox!",
@@ -34,12 +41,6 @@ use Test::WidgetFactory;
   ok(
     $checkbox->attr('checked'),
     "it's checked"
-  );
-
-  is(
-    $checkbox->attr('value'),
-    undef,
-    "...but it has no value"
   );
 }
 
@@ -60,19 +61,19 @@ use Test::WidgetFactory;
   );
 
   is(
+    $checkbox->attr('value'),
+    'minty',
+    "got the right value",
+  );
+
+  is(
     $checkbox->attr('type'),
     'checkbox',
     "it's a checkbox!",
   );
 
   ok(
-    $checkbox->attr('checked'),
-    "it's checked"
-  );
-
-  is(
-    $checkbox->attr('value'),
-    undef,
-    "...but it has no value"
+    ! $checkbox->attr('checked'),
+    "it's not checked"
   );
 }

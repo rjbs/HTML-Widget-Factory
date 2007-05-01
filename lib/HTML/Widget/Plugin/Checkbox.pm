@@ -51,20 +51,23 @@ are valid arguments:
 This is the widget's initial state.  If true, the checkbox is checked.
 Otherwise, it is not.
 
+=item value
+
+This is the value for the checkbox, not to be confused with whether or not it
+is checked.
+
 =back
 
 =cut
 
 sub _attribute_args { qw(checked value) }
-sub _boolean_args   { qw(checked value) }
+sub _boolean_args   { qw(checked) }
 
 sub checkbox {
   my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{type} = 'checkbox';
 
-  my $value = delete $arg->{attr}{value};
-  $arg->{attr}{checked} = $value if not defined $arg->{attr}{checked};
   $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
 
   my $widget = HTML::Element->new('input');
