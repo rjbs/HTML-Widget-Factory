@@ -25,6 +25,7 @@ t/link.t
 t/multiselect.t
 t/password.t
 t/plugin.t
+t/plugins.t
 t/pod-coverage.t
 t/pod.t
 t/radio.t

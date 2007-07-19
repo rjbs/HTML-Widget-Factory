@@ -129,7 +129,7 @@ This returns a list of the plugins loaded by the factory.
 
 =cut
 
-sub plugins { @{ $self->plugins } }
+sub plugins { @{ $_[0]->{plugins} } }
 
 =head1 TODO
 
