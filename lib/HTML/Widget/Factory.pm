@@ -105,10 +105,10 @@ sub new {
   my $obj_class = $_default_class;
   my $reaper;
 
+  my @plugins = $arg->{plugins} ? @{ $arg->{plugins} } : @_default_plugins;
+
   if ($arg->{plugins} or $arg->{extra_plugins}) {
     $obj_class = $class->__new_class;
-
-    my @plugins = $arg->{plugins} ? @{ $arg->{plugins} } : @_default_plugins;
 
     push @plugins, @{ $arg->{extra_plugins} } if $arg->{extra_plugins};
 
@@ -117,8 +117,19 @@ sub new {
     $reaper = Package::Reaper->new($obj_class);
   }
 
-  bless { ($reaper ? (reaper => $reaper) : ()) } => $obj_class;
+  bless {
+    ($reaper ? (reaper => $reaper) : ()),
+    plugins => \@plugins,
+  } => $obj_class;
 }
+
+=head2 plugins
+
+This returns a list of the plugins loaded by the factory.
+
+=cut
+
+sub plugins { @{ $self->plugins } }
 
 =head1 TODO
 
