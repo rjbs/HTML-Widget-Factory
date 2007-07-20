@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.058   2007-07-19
+        add ->plugins method to factory
+
 0.057   2007-05-01
         fix stupidity in checkbox design, which conflated "checked" and "value"
 
