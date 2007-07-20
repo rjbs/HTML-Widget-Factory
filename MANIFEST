@@ -32,3 +32,4 @@ t/radio.t
 t/select.t
 t/submit.t
 t/textarea.t
+t/lib/Test/WidgetFactory.pm
