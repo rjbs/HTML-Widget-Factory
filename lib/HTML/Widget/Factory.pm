@@ -41,7 +41,8 @@ form controls.
 
 use Module::Pluggable
   search_path => [ qw(HTML::Widget::Plugin) ],
-  sub_name    => '_default_plugins';
+  sub_name    => '_default_plugins'
+  except      => qr/^HTML::Widget::Plugin::Debug/;
 
 use Package::Generator;
 use Package::Reaper;
