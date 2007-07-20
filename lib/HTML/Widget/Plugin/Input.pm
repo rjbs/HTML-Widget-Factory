@@ -31,7 +31,7 @@ use HTML::Element;
 
 =head2 C< provided_widgets >
 
-This plugin provides the following widgets: input
+This plugin provides the following widgets: input, hidden
 
 =cut
 
