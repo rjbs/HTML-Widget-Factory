@@ -11,13 +11,11 @@ HTML::Widget::Plugin::Link - a hyperlink
 
 =head1 VERSION
 
-version 0.055
-
- $Id: /my/icg/widget/trunk/lib/HTML/Widget/Plugin/Input.pm 16769 2005-11-29T17:50:44.157832Z rjbs  $
+version 0.059
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.059';
 
 =head1 DESCRIPTION
 
@@ -52,15 +50,21 @@ are valid arguments:
 This is the URI to which the link ... um ... links.  If no href is supplied, an
 exception is thrown.
 
+=item html
+
 =item text
 
-This is the text of created link.  If no text is supplied, the href is used.
+Either of these may contain the text of created link.  If passed as C<html>, it
+is not escaped; if passed as C<text>, it is.  If no text is supplied, the href
+is used.  If both options are provided, an exception is thrown.
+
+=item 
 
 =back
 
 =cut
 
-sub _attribute_args { qw(href class id) }
+sub attribute_args { qw(href text html title) }
 
 sub link {
   my ($self, $factory, $arg) = @_;
