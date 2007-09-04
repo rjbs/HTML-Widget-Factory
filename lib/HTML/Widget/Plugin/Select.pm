@@ -13,8 +13,6 @@ HTML::Widget::Plugin::Select - a widget for selection from a list
 
 version 0.055
 
- $Id$
-
 =cut
 
 our $VERSION = '0.055';

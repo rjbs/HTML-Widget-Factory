@@ -13,8 +13,6 @@ HTML::Widget::Plugin::Input - the most basic input widget
 
 version 0.055
 
- $Id$
-
 =cut
 
 our $VERSION = '0.055';

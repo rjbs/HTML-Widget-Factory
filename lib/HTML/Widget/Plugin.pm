@@ -12,8 +12,6 @@ HTML::Widget::Plugin - base class for HTML widgets
 
 version 0.011
 
- $Id$
-
 =cut
 
 our $VERSION = '0.011';

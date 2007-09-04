@@ -1,38 +1,43 @@
 Revision history for HTML-Widget-Factory
 
-0.058   2007-07-19
-        add ->plugins method to factory
-        do not auto-load plugins under ::Plugin::Debug
+0.059     2007-09-04
+          BUG FIX: fix confused attribute args for Link
+          FEATURE: title is now a Link attribute arg
 
-0.057   2007-05-01
-        fix stupidity in checkbox design, which conflated "checked" and "value"
+0.058     2007-07-19
+          add ->plugins method to factory
+          do not auto-load plugins under ::Plugin::Debug
 
-0.056   2007-02-28
-        change Button "content" arg to text/html, to match Link
+0.057     2007-05-01
+          fix stupidity in checkbox design, which conflated "checked" and
+          "value"
 
-0.055   2007-02-28
-        add Submit, Image, and Button plugins
-        allow html instead of link text
-        plans for all test files
-        a few other little tweaks
+0.056     2007-02-28
+          change Button "content" arg to text/html, to match Link
 
-0.050   2007-02-24
-        allow return of individual radio widget parts
-        allow per-radio-option ids
-        allow ignore_invalid for radio buttons
-        fix errors in error messages from radio buttons
-        skip ->require on (__)?GENERATED(__)? plugin classes
+0.055     2007-02-28
+          add Submit, Image, and Button plugins
+          allow html instead of link text
+          plans for all test files
+          a few other little tweaks
 
-0.04    2006-06-06
-        implement per-factory classes
+0.050     2007-02-24
+          allow return of individual radio widget parts
+          allow per-radio-option ids
+          allow ignore_invalid for radio buttons
+          fix errors in error messages from radio buttons
+          skip ->require on (__)?GENERATED(__)? plugin classes
 
-0.03    2005-12-21
-        add prereqs (thanks to BSMITH for bug report)
-        reenable taint mode in tests (thanks to newer M::Pluggable)
-        for cumulative methods, skip classes that don't implement them
+0.04      2006-06-06
+          implement per-factory classes
 
-0.02    2005-11-29
-        added textarea and link
+0.03      2005-12-21
+          add prereqs (thanks to BSMITH for bug report)
+          reenable taint mode in tests (thanks to newer M::Pluggable)
+          for cumulative methods, skip classes that don't implement them
 
-0.01    2005-11-19
-        first release. share and enjoy
+0.02      2005-11-29
+          added textarea and link
+
+0.01      2005-11-19
+          first release. share and enjoy

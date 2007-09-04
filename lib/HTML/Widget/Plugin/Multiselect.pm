@@ -13,8 +13,6 @@ HTML::Widget::Plugin::Multiselect - widget for multiple selections from a list
 
 version 0.055
 
- $Id$
-
 =cut
 
 our $VERSION = '0.055';

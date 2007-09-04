@@ -13,8 +13,6 @@ HTML::Widget::Plugin::Checkbox - it's either [ ] or [x]
 
 version 0.057
 
- $Id$
-
 =cut
 
 our $VERSION = '0.057';

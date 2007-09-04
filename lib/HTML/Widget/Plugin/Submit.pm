@@ -13,8 +13,6 @@ HTML::Widget::Plugin::Submit - for submit type inputs
 
 version 0.055
 
- $Id$
-
 =cut
 
 our $VERSION = '0.055';
