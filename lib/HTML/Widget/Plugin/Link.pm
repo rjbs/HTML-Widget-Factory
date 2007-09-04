@@ -64,7 +64,7 @@ is used.  If both options are provided, an exception is thrown.
 
 =cut
 
-sub attribute_args { qw(href text html title) }
+sub attribute_args { qw(href title) }
 
 sub link {
   my ($self, $factory, $arg) = @_;
