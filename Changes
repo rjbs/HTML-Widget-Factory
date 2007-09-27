@@ -1,5 +1,9 @@
 Revision history for HTML-Widget-Factory
 
+0.060     2007-09-04
+          BUG FIX: the error for an invalid "value" for select now lists the
+          given value, rather than 0
+
 0.059     2007-09-04
           BUG FIX: fix confused attribute args for Link
           FEATURE: title is now a Link attribute arg

@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Textarea;
-use base qw(HTML::Widget::Plugin);
+
+use HTML::Widget::Plugin;
+BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
 =head1 NAME
 
@@ -11,11 +13,11 @@ HTML::Widget::Plugin::Textarea - a widget for a large text entry box
 
 =head1 VERSION
 
-version 0.055
+version 0.060
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.060';
 
 =head1 DESCRIPTION
 

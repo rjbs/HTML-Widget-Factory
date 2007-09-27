@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Select;
-use base qw(HTML::Widget::Plugin);
+
+use HTML::Widget::Plugin;
+BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
 =head1 NAME
 
@@ -11,11 +13,11 @@ HTML::Widget::Plugin::Select - a widget for selection from a list
 
 =head1 VERSION
 
-version 0.055
+version 0.060
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.060';
 
 =head1 DESCRIPTION
 
@@ -154,7 +156,7 @@ sub validate_value {
     my $matches = grep { $value eq $_ } @options;
 
     if (not $matches) {
-      Carp::croak "provided value '$matches' not in given options: "
+      Carp::croak "provided value '$value' not in given options: "
                 . join(' ', map { "'$_'" } @options);
     } elsif ($matches > 1) {
       Carp::croak "provided value '$matches' matches more than one option";

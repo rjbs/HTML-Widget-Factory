@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Multiselect;
-use base qw(HTML::Widget::Plugin::Select);
+
+use HTML::Widget::Plugin::Select;
+BEGIN { our @ISA = 'HTML::Widget::Plugin::Select' };
 
 =head1 NAME
 
@@ -11,11 +13,11 @@ HTML::Widget::Plugin::Multiselect - widget for multiple selections from a list
 
 =head1 VERSION
 
-version 0.055
+version 0.060
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.060';
 
 =head1 DESCRIPTION
 
@@ -100,7 +102,7 @@ sub validate_value {
 
   for my $value (@$values) {
     my $matches = grep { $value eq $_ } map { ref $_ ? $_->[0] : $_ } @$options;
-    Carp::croak "provided value not in given options" unless $matches;
+    Carp::croak "provided value '$value' not in given options" unless $matches;
   }
 }
 

@@ -109,7 +109,7 @@ use Test::WidgetFactory;
 {
   # test exception on invalid value
   eval { widget(select => { options => [[1,1]], value => 2 }) };
-  like($@, qr/not in given/, "bad values throw exception");
+  like($@, qr/value '2' not in given/, "bad values throw exception");
 
   my $html = eval {
     my ($x) = widget(

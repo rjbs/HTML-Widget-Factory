@@ -3,7 +3,8 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Radio;
-use base qw(HTML::Widget::Plugin);
+use HTML::Widget::Plugin;
+BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
 =head1 NAME
 
@@ -11,11 +12,11 @@ HTML::Widget::Plugin::Radio - a widget for sets of radio buttons
 
 =head1 VERSION
 
-version 0.055
+version 0.060
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.060';
 
 =head1 DESCRIPTION
 

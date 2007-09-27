@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Submit;
-use base qw(HTML::Widget::Plugin::Input);
+
+use HTML::Widget::Plugin::Input;
+BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
 =head1 NAME
 
@@ -11,11 +13,11 @@ HTML::Widget::Plugin::Submit - for submit type inputs
 
 =head1 VERSION
 
-version 0.055
+version 0.060
 
 =cut
 
-our $VERSION = '0.055';
+our $VERSION = '0.060';
 
 =head1 DESCRIPTION
 
