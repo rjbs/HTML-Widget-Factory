@@ -19,6 +19,7 @@ our $VERSION = '0.060';
 use Carp ();
 use Class::ISA;
 use List::MoreUtils qw(uniq);
+use Sub::Install;
 
 =head1 DESCRIPTION
 
@@ -135,13 +136,16 @@ sub import {
       "$class claims to provide widget '$widget' but has no such method"
       unless $class->can($widget);
 
-    no strict 'refs';
-    *{$target . '::' . $install_to} = sub {
-      my ($self, $given_arg) = @_;
-      my $arg = $class->rewrite_arg($given_arg);
+    Sub::Install::install_sub({
+      into => $target,
+      as   => $install_to,
+      code => sub {
+        my ($self, $given_arg) = @_;
+        my $arg = $class->rewrite_arg($given_arg);
 
-      $class->$widget($self, $arg);
-    }
+        $class->$widget($self, $arg);
+      }
+    });
   }
 }
 

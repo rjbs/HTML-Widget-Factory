@@ -68,7 +68,7 @@ is used.  If both options are provided, an exception is thrown.
 
 sub _attribute_args { qw(href title) }
 
-sub link {
+sub link { ## no critic Builtin
   my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};

@@ -105,7 +105,7 @@ sub radio {
   # XXX document
   return @widgets if wantarray and $arg->{parts};
 
-  return join '', map { $_->as_XML } @widgets;
+  return join q{}, map { $_->as_XML } @widgets;
 }
 
 =head2 C< validate_value >
@@ -125,7 +125,7 @@ sub validate_value {
 
     if (not $matches) {
       Carp::croak "provided value '$value' not in given options: "
-                . join(' ', map { "'$_'" } @options);
+                . join(q{ }, map { "'$_'" } @options);
     } elsif ($matches > 1) {
       Carp::croak "provided value '$value' matches more than one option";
     }

@@ -13,6 +13,7 @@ WriteMakefile(
     'Module::Pluggable'  => 2.9,
     'Package::Generator' => 0.100,
     'Package::Reaper'    => 0.100,
+    'Sub::Install'       => 0.000, # unknown
     'UNIVERSAL::require' => 0.10,
 	},
 	dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

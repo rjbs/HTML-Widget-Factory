@@ -77,7 +77,7 @@ use HTML::Element;
 sub _attribute_args { qw(disabled) }
 sub _boolean_args   { qw(disabled) }
 
-sub select {
+sub select { ## no critic Builtin
   my ($self, $factory, $arg) = @_;
 
   $self->build($factory, $arg);
@@ -157,7 +157,7 @@ sub validate_value {
 
     if (not $matches) {
       Carp::croak "provided value '$value' not in given options: "
-                . join(' ', map { "'$_'" } @options);
+                . join(q{ }, map { "'$_'" } @options);
     } elsif ($matches > 1) {
       Carp::croak "provided value '$matches' matches more than one option";
     }
