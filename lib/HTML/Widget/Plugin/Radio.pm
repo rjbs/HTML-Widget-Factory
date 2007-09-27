@@ -3,7 +3,8 @@ use strict;
 use warnings;
 
 package HTML::Widget::Plugin::Radio;
-use HTML::Widget::Plugin;
+
+use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
 =head1 NAME

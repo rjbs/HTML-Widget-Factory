@@ -4,7 +4,7 @@ use warnings;
 
 package HTML::Widget::Plugin::Password;
 
-use HTML::Widget::Plugin::Input;
+use HTML::Widget::Plugin::Input ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
 =head1 NAME

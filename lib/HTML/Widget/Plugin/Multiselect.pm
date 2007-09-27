@@ -4,7 +4,7 @@ use warnings;
 
 package HTML::Widget::Plugin::Multiselect;
 
-use HTML::Widget::Plugin::Select;
+use HTML::Widget::Plugin::Select ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Select' };
 
 =head1 NAME

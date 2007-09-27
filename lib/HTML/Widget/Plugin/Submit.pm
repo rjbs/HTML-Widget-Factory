@@ -4,7 +4,7 @@ use warnings;
 
 package HTML::Widget::Plugin::Submit;
 
-use HTML::Widget::Plugin::Input;
+use HTML::Widget::Plugin::Input ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
 =head1 NAME
