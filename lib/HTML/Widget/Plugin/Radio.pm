@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Radio - a widget for sets of radio buttons
 
 =head1 VERSION
 
-version 0.060
+version 0.061
 
 =cut
 
-our $VERSION = '0.060';
+our $VERSION = '0.061';
 
 =head1 DESCRIPTION
 
@@ -84,7 +84,10 @@ sub radio {
   $self->validate_value($arg->{value}, $arg->{options})
     unless $arg->{ignore_invalid};
 
-  $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
+  if (my $id_attr = delete $arg->{attr}{id}) {
+    Carp::cluck "id may not be used as a widget-level attribute for radio";
+    $arg->{attr}{name} = $id_attr if not defined $arg->{attr}{name};
+  }
 
   for my $option (@{ $arg->{options} }) {
     my ($value, $text, $id) = (ref $option) ? (@$option) : (($option) x 2);

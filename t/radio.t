@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 38;
+use Test::More tests => 39;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -13,6 +13,7 @@ use Test::WidgetFactory;
   my ($html, $tree) = widget(radio => {
     options => [ qw(hot cold luke_warm) ],
     name    => 'temperature',
+    id      => 'foo',
     value   => 'luke_warm',
   });
   
@@ -29,6 +30,11 @@ use Test::WidgetFactory;
       "got correct input name",
     );
   }
+
+  my %id;
+  $id{$_}++ for grep { defined } map { $_->attr('id') } @inputs;
+
+  is(keys %id, 0, "the id argument is ignored");
   
   my @selected = $tree->look_down(sub { $_[0]->attr('checked') });
 
@@ -179,7 +185,7 @@ use Test::WidgetFactory;
         [ cold      => 'COLD!<br />', ],
         [ luke_warm => 'SPIT IT OUT!', ],
       ],
-      id      => 'temperature',
+      name    => 'temperature',
       value   => 'cool',
       ignore_invalid => 1,
     });

@@ -1,5 +1,10 @@
 Revision history for HTML-Widget-Factory
 
+0.061     2007-10-02
+          BUG FIX: do not allow 'id' attribute to trickle from widget params to
+          each radio input repeatedly; now supplying id outside of options gets
+          a warning
+
 0.060     2007-09-04
           BUG FIX: the error for an invalid "value" for select now lists the
           given value, rather than 0
