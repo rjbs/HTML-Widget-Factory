@@ -61,6 +61,7 @@ sub multiselect {
   my ($self, $factory, $arg) = @_;
 
   $arg->{attr}{name} = $arg->{attr}{id} if not defined $arg->{attr}{name};
+  $arg->{attr}{multiple} = 'multiple';
 
   if ($arg->{values}) {
     $arg->{value} = delete $arg->{values};
