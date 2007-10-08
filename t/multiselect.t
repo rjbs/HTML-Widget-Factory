@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 16;
+use Test::More tests => 17;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -23,6 +23,11 @@ use Test::WidgetFactory;
     $select->attr('name'),
     'options',
     "got correct input name",
+  );
+
+  ok(
+    $select->attr('multiple'),
+    "multiple attr is set",
   );
 
   my @options = $select->look_down(_tag => 'option');

@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.062     2007-10-08
+          BUG FIX: set 'multiple' attr on multiselects
+
 0.061     2007-10-02
           BUG FIX: do not allow 'id' attribute to trickle from widget params to
           each radio input repeatedly; now supplying id outside of options gets
