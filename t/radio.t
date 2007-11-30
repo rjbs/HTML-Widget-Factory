@@ -2,12 +2,18 @@
 use strict;
 use warnings;
 
-use Test::More tests => 39;
+use Test::More tests => 48;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
 use lib 't/lib';
 use Test::WidgetFactory;
+
+local $SIG{__WARN__} = sub {
+  my $warning = shift;
+  return if $warning =~ /id may not be used/;
+  warn $warning;
+};
 
 { # make a set of radio buttons
   my ($html, $tree) = widget(radio => {
@@ -44,6 +50,42 @@ use Test::WidgetFactory;
     $selected[0]->attr('value'),
     'luke_warm',
     "the selected one is the one we wanted to be selected",
+  );
+}
+
+{ # make a set of radio buttons
+  my ($html, $tree) = widget(radio => {
+    options => [
+      [ 0 => 'zero' ],
+      [ 1 => 'one'  ],
+      [ 2 => 'two'  ],
+    ],
+    name    => 'number',
+    value   => '0',
+  });
+  
+  my @inputs = $tree->look_down(_tag => 'input');
+
+  is(@inputs, 3, "we created three options");
+
+  for (@inputs) {
+    isa_ok($_, 'HTML::Element');
+
+    is(
+      $_->attr('name'),
+      'number',
+      "got correct input name",
+    );
+  }
+
+  my @selected = $tree->look_down(sub { $_[0]->attr('checked') });
+
+  is(@selected, 1, "only one option is selected");
+
+  is(
+    $selected[0]->attr('value'),
+    '0',
+    "the selected one is the one with value 0",
   );
 }
 

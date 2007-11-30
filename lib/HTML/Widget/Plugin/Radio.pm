@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Radio - a widget for sets of radio buttons
 
 =head1 VERSION
 
-version 0.062
+version 0.063
 
 =cut
 
-our $VERSION = '0.062';
+our $VERSION = '0.063';
 
 =head1 DESCRIPTION
 
@@ -100,7 +100,7 @@ sub radio {
     $widget->push_content(HTML::Element->new('~literal', text => $text));
 
     $widget->attr(checked => 'checked')
-      if $arg->{value} and $arg->{value} eq $value;
+      if defined $arg->{value} and $arg->{value} eq $value;
 
     push @widgets, $widget;
   }
