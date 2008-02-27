@@ -10,11 +10,11 @@ HTML::Widget::Plugin - base class for HTML widgets
 
 =head1 VERSION
 
-version 0.063
+version 0.064
 
 =cut
 
-our $VERSION = '0.063';
+our $VERSION = '0.064';
 
 use Carp ();
 use Class::ISA;
@@ -78,7 +78,7 @@ sub attribute_args {
   return uniq @attributes;
 }   
 
-sub _attribute_args { qw(id name class) }
+sub _attribute_args { qw(id name class tabindex) }
 
 =head2 C< boolean_args >
 

@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.064     2008-02-26
+          ENHANCEMENT: add tabindex as a global attribute
+
 0.063     2007-11-29
           BUG FIX: previously, radio value 0 could not be selected
 
