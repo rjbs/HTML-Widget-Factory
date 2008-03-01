@@ -10,11 +10,11 @@ HTML::Widget::Plugin - base class for HTML widgets
 
 =head1 VERSION
 
-version 0.064
+version 0.065
 
 =cut
 
-our $VERSION = '0.064';
+our $VERSION = '0.065';
 
 use Carp ();
 use Class::ISA;

@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Multiselect - widget for multiple selections from a list
 
 =head1 VERSION
 
-version 0.064
+version 0.065
 
 =cut
 
-our $VERSION = '0.064';
+our $VERSION = '0.065';
 
 =head1 DESCRIPTION
 
