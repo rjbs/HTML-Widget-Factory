@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.066     2008-05-05
+          add Attrs plugin for producing attribute strings (without the tags)
+
 0.065     2008-02-29
           BUG FIX: do not fail t/plugins.t if there are extra plugins
           Happy leap day!

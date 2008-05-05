@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Submit - for submit type inputs
 
 =head1 VERSION
 
-version 0.065
+version 0.066
 
 =cut
 
-our $VERSION = '0.065';
+our $VERSION = '0.066';
 
 =head1 DESCRIPTION
 
