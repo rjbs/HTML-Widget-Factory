@@ -22,7 +22,7 @@ sub widget {
 
   my $html = $factory->$widget($arg);
 
-  my $tree = HTML::TreeBuilder->new_from_content($html);
+  my $tree = eval { HTML::TreeBuilder->new_from_content($html) };
 
   return ($html, $tree);
 }
