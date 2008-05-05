@@ -9,4 +9,6 @@ requires 'Package::Reaper'    => 0.100;
 requires 'Sub::Install'       => 0.000; # unknown
 requires 'UNIVERSAL::require' => 0.10;
 
+extra_tests;
+
 WriteAll;
