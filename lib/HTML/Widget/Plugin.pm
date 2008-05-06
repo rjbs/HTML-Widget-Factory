@@ -129,6 +129,9 @@ sub import {
     my $install_to = $widget;
     ($widget, $install_to) = @$widget if ref $widget;
 
+    # XXX: This is awkward because it checks ->can instead of provides_widget.
+    # This may be for the best since you don't want a widget called "new"
+    # -- rjbs, 2008-05-06
     Carp::croak "$target can already provide widget '$widget'"
       if $target->can($install_to);
 
