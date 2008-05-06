@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -21,3 +21,6 @@ use Test::WidgetFactory;
     "input looks sort of like what we asked for"
   );
 }
+
+my $fac = HTML::Widget::Factory->new;
+ok($fac->provides_widget('input'), "we provide an input widget");

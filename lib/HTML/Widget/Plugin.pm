@@ -131,6 +131,12 @@ sub import {
 
     Carp::croak "$target can already provide widget '$widget'"
       if $target->can($install_to);
+
+    {
+      no strict 'refs';
+      my $pw = \%{"$target\::_provided_widgets"};
+      $pw->{ $install_to } = 1;
+    }
   
     Carp::croak
       "$class claims to provide widget '$widget' but has no such method"

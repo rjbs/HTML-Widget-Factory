@@ -87,6 +87,22 @@ sub __mix_in {
   }
 }
 
+sub provides_widget {
+  my ($class, $name) = @_;
+  $class = ref $class if ref $class;
+  no strict 'refs';
+  my %pw = %{"$class\::_provided_widgets"};
+  return exists $pw{ $name };
+}
+
+sub provided_widgets {
+  my ($class) = @_;
+  $class = ref $class if ref $class;
+  no strict 'refs';
+  my %pw = %{"$class\::_provided_widgets"};
+  return keys %pw;
+}
+
 my @_default_plugins;
 my $_default_class;
 BEGIN {
