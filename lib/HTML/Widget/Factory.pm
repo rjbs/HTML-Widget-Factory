@@ -88,34 +88,6 @@ sub __mix_in {
   }
 }
 
-sub provides_widget {
-  my ($class, $name) = @_;
-  $class = ref $class if ref $class;
-
-  for (Class::ISA::self_and_super_path($class)) {
-    no strict 'refs';
-    my %pw = %{"$_\::_provided_widgets"};
-    return 1 if exists $pw{ $name };
-  }
-
-  return;
-}
-
-sub provided_widgets {
-  my ($class) = @_;
-  $class = ref $class if ref $class;
-
-  my %provided;
-
-  for (Class::ISA::self_and_super_path($class)) {
-    no strict 'refs';
-    my %pw = %{"$_\::_provided_widgets"};
-    @provided{ keys %pw } = (1) x (keys %pw);
-  }
-
-  return keys %provided;
-}
-
 my @_default_plugins;
 my $_default_class;
 BEGIN {
@@ -151,6 +123,54 @@ sub new {
     plugins => \@plugins,
   } => $obj_class;
 }
+
+=head2 provides_widget
+
+  if ($factory->provides_widget($name)) { ... }
+
+This method returns true if the given name is a widget provided by the factory.
+This, and not C<can> should be used to determine whether a factory can provide
+a given widget.
+
+=cut
+
+sub provides_widget {
+  my ($class, $name) = @_;
+  $class = ref $class if ref $class;
+
+  for (Class::ISA::self_and_super_path($class)) {
+    no strict 'refs';
+    my %pw = %{"$_\::_provided_widgets"};
+    return 1 if exists $pw{ $name };
+  }
+
+  return;
+}
+
+=head2 provided_widgets
+
+  for my $name ($fac->provided_widgets) { ... }
+
+This method returns an unordered list of the names of the widgets provided by
+this factory.
+
+=cut
+
+sub provided_widgets {
+  my ($class) = @_;
+  $class = ref $class if ref $class;
+
+  my %provided;
+
+  for (Class::ISA::self_and_super_path($class)) {
+    no strict 'refs';
+    my %pw = %{"$_\::_provided_widgets"};
+    @provided{ keys %pw } = (1) x (keys %pw);
+  }
+
+  return keys %provided;
+}
+
 
 =head2 plugins
 
