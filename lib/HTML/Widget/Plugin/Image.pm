@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Image - an image object
 
 =head1 VERSION
 
-version 0.066
+version 0.067
 
 =cut
 
-our $VERSION = '0.066';
+our $VERSION = '0.067';
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,9 @@
 Revision history for HTML-Widget-Factory
 
+0.067     2008-05-06
+          add ->provides_widget and ->provided_widgets methods to Factory
+          fix docs for -tag arg to Attrs (thanks HDP)
+
 0.066     2008-05-05
           add Attrs plugin for producing attribute strings (without the tags)
 
