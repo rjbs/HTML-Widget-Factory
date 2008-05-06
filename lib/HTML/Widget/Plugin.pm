@@ -70,7 +70,7 @@ sub attribute_args {
   my ($class) = shift;
   my @attributes;
 
-  for ($class, Class::ISA::super_path($class)) {
+  for (Class::ISA::self_and_super_path($class)) {
     next unless $_->can('_attribute_args');
     push @attributes, $_->_attribute_args(@_);
   }

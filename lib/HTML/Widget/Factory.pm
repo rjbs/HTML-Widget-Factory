@@ -68,6 +68,7 @@ to these.
 
 sub __new_class {
   my ($class) = @_;
+  $class = ref $class if ref $class;
 
   my $obj_class = Package::Generator->new_package({
     base => "$class\::GENERATED",
@@ -90,17 +91,29 @@ sub __mix_in {
 sub provides_widget {
   my ($class, $name) = @_;
   $class = ref $class if ref $class;
-  no strict 'refs';
-  my %pw = %{"$class\::_provided_widgets"};
-  return exists $pw{ $name };
+
+  for (Class::ISA::self_and_super_path($class)) {
+    no strict 'refs';
+    my %pw = %{"$_\::_provided_widgets"};
+    return 1 if exists $pw{ $name };
+  }
+
+  return;
 }
 
 sub provided_widgets {
   my ($class) = @_;
   $class = ref $class if ref $class;
-  no strict 'refs';
-  my %pw = %{"$class\::_provided_widgets"};
-  return keys %pw;
+
+  my %provided;
+
+  for (Class::ISA::self_and_super_path($class)) {
+    no strict 'refs';
+    my %pw = %{"$_\::_provided_widgets"};
+    @provided{ keys %pw } = (1) x (keys %pw);
+  }
+
+  return keys %provided;
 }
 
 my @_default_plugins;
