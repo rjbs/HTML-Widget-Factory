@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Link - a hyperlink
 
 =head1 VERSION
 
-version 0.067
+version 0.068
 
 =cut
 
-our $VERSION = '0.067';
+our $VERSION = '0.068';
 
 =head1 DESCRIPTION
 
@@ -93,7 +93,10 @@ sub link { ## no critic Builtin
 
   $widget->push_content($content);
 
-  return $widget->as_XML;
+  # We chomp this to avoid significant whitespace. -- rjbs, 2008-09-22
+  my $xml = $widget->as_XML;
+  chomp $xml;
+  return $xml;
 }
 
 =head1 AUTHOR

@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Button - a button for clicking
 
 =head1 VERSION
 
-version 0.067
+version 0.068
 
 =cut
 
-our $VERSION = '0.067';
+our $VERSION = '0.068';
 
 =head1 DESCRIPTION
 
