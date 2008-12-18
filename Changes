@@ -1,5 +1,9 @@
 Revision history for HTML-Widget-Factory
 
+0.069     2008-12-18
+          radio buttons with content did not get closing tags even in XML
+          work around this
+
 0.068     2008-09-22
           chomp the output of link widgets
 
