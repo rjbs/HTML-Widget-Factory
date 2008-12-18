@@ -13,11 +13,11 @@ HTML::Widget::Plugin::Select - a widget for selection from a list
 
 =head1 VERSION
 
-version 0.068
+version 0.069
 
 =cut
 
-our $VERSION = '0.068';
+our $VERSION = '0.069';
 
 =head1 DESCRIPTION
 
