@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.070     2009-06-30
+          add SYNOPSIS section to plugins for quick reference
+
 0.069     2008-12-18
           radio buttons with content did not get closing tags even in XML
           work around this

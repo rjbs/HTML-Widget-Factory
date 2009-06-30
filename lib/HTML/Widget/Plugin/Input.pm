@@ -7,7 +7,7 @@ package HTML::Widget::Plugin::Input;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
-our $VERSION = '0.069';
+our $VERSION = '0.070';
 
 =head1 NAME
 
