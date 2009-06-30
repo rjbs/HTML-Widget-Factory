@@ -7,17 +7,26 @@ package HTML::Widget::Plugin::Input;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Input - the most basic input widget
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
+  $widget_factory->input({
+    id    => 'flavor',   # if "name" isn't given, id will be used for name
+    size  => 25,
+    value => $default_flavor,
+  });
 
-=cut
+...or...
 
-our $VERSION = '0.069';
+  $widget_factory->hidden({
+    id    => 'flavor',   # if "name" isn't given, id will be used for name
+    value => $default_flavor,
+  });
 
 =head1 DESCRIPTION
 

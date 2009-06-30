@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,25 @@ package HTML::Widget::Plugin::Link;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Link - a hyperlink
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
+  $widget_factory->link({
+    text => "my favorite D&D pages",
+    href => 'http://rjbs.manxome.org/rubric/entries/tags/dnd',
+  });
 
-=cut
+...or...
 
-our $VERSION = '0.069';
+  $widget_factory->link({
+    html => "some <em>great<em> d&amp;d pages",
+    href => 'http://rjbs.manxome.org/rubric/entries/tags/dnd',
+  });
 
 =head1 DESCRIPTION
 

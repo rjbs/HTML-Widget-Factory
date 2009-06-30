@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,19 @@ package HTML::Widget::Plugin::Checkbox;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Checkbox - it's either [ ] or [x]
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->checkbox({
+    id      => 'checkbox-id',    # also used as default for control name
+    value   => 'checkbox-value', # -not- the "am I checked?" setting
+    checked => $true_or_false,
+  });
 
 =head1 DESCRIPTION
 

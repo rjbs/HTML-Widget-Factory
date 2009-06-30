@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,18 @@ package HTML::Widget::Plugin::Password;
 use HTML::Widget::Plugin::Input ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Password - for SECRET input
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->password({
+    id    => 'user_secret',
+    value => "not visible in html",
+  });
 
 =head1 DESCRIPTION
 

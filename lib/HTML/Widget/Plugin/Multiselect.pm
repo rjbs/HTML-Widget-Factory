@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,24 @@ package HTML::Widget::Plugin::Multiselect;
 use HTML::Widget::Plugin::Select ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Select' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Multiselect - widget for multiple selections from a list
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->multiselect({
+    id      => 'multiopts', # if no name attr given, defaults to id value
+    size    => 3,
+    values  => [ 'value_1', 'value_3' ],
+    options => [
+      [ value_1 => 'Display Name 1' ],
+      [ value_2 => 'Display Name 2' ],
+      [ value_3 => 'Display Name 3' ],
+    ],
+  });
 
 =head1 DESCRIPTION
 

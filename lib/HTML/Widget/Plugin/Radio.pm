@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,23 @@ package HTML::Widget::Plugin::Radio;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Radio - a widget for sets of radio buttons
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->radio({
+    name    => 'radio',
+    value   => 'value_1',
+    options => [
+      [ value_1 => "Description 1" ],
+      [ value_2 => "Description 2" ],
+      [ value_2 => "Description 2", 'optional-elem-id' ],
+    ],
+  });
 
 =head1 DESCRIPTION
 

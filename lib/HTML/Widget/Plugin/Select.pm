@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,23 @@ package HTML::Widget::Plugin::Select;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Select - a widget for selection from a list
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->select({
+    id      => 'the-selector', # if no name attr given, defaults to id value
+    value   => 10,
+    options => [
+      [  0 => "Zero" ],
+      [  5 => "Five" ],
+      [ 10 => "Ten"  ],
+    ],
+  });
 
 =head1 DESCRIPTION
 

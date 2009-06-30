@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,25 @@ package HTML::Widget::Plugin::Button;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Button - a button for clicking
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
+  $widget_factory->button({
+    text => "submit & continue",
+    type => 'submit',
+  });
 
-=cut
+...or...
 
-our $VERSION = '0.069';
+  $widget_factory->button({
+    html => "reset <em>all</em> content",
+    type => 'reset',
+  });
 
 =head1 DESCRIPTION
 

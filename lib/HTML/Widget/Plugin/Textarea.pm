@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,18 @@ package HTML::Widget::Plugin::Textarea;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Textarea - a widget for a large text entry box
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->textarea({
+    id    => 'elem-id', # also used as control name, if no name given
+    value => $big_hunk_of_text,
+  });
 
 =head1 DESCRIPTION
 

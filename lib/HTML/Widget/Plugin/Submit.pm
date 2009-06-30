@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,18 @@ package HTML::Widget::Plugin::Submit;
 use HTML::Widget::Plugin::Input ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Submit - for submit type inputs
 
-=head1 VERSION
+=head1 SYNOPSIS
 
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
+  $widget_factory->submit({
+    id    => 'button-id', # will be used as default control name, too
+    value => 'button label',
+  });
 
 =head1 DESCRIPTION
 

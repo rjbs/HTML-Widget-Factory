@@ -1,4 +1,3 @@
-
 use strict;
 use warnings;
 
@@ -7,17 +6,11 @@ package HTML::Widget::Plugin::Attrs;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
+our $VERSION = '0.069';
+
 =head1 NAME
 
 HTML::Widget::Plugin::Attrs - an HTML attribute string
-
-=head1 VERSION
-
-version 0.069
-
-=cut
-
-our $VERSION = '0.069';
 
 =head1 DESCRIPTION
 
