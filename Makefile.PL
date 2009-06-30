@@ -7,8 +7,8 @@ requires 'Module::Pluggable'  => 2.9;
 requires 'Package::Generator' => 0.100;
 requires 'Package::Reaper'    => 0.100;
 requires 'Sub::Install'       => 0.000; # unknown
-requires 'UNIVERSAL::require' => 0.10;
 
+auto_manifest;
 extra_tests;
 
 WriteAll;
