@@ -24,6 +24,19 @@ HTML::Widget::Plugin::Radio - a widget for sets of radio buttons
     ],
   });
 
+This will emit roughly:
+
+  <input type='radio' name='radio' value='value_1' id='radio-value_1'
+  checked='checked'></input>
+  <label for='radio-value_1'>Description 2</label>
+
+  <input type='radio' name='radio' value='value_2' id='radio-value_2'></input>
+  <label for='radio-value_2'>Description 2</label>
+
+  <input type='radio' name='radio' value='value_3'
+  id='optional-elem-id'></input>
+  <label for='optional-elem-id'>Description 2</label>
+
 =head1 DESCRIPTION
 
 This plugin provides a radio button-set widget
@@ -100,14 +113,21 @@ sub radio {
     my $widget = HTML::Element->new('input', type => 'radio');
     $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
     # XXX document
-    $widget->attr(id => $id) if $id;
+
+    $id = "$arg->{attr}{name}-$value"
+      if ! defined $id and defined $arg->{attr}{name};
+
+    $widget->attr(id => $id) if defined $id;
+
     $widget->attr(value => $value);
 
     $widget->attr(checked => 'checked')
       if defined $arg->{value} and $arg->{value} eq $value;
 
     push @widgets, $widget;
-    push @widgets, HTML::Element->new('~literal', text => $text);
+    push @widgets, defined $id
+      ? HTML::Element->new_from_lol([ label => $text => { for => $id } ])
+      : HTML::Element->new('~literal', text => $text);
   }
 
   # XXX document

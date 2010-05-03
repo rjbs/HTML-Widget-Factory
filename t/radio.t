@@ -37,10 +37,11 @@ local $SIG{__WARN__} = sub {
     );
   }
 
-  my %id;
-  $id{$_}++ for grep { defined } map { $_->attr('id') } @inputs;
-
-  is(keys %id, 0, "the id argument is ignored");
+  is(
+    (grep { defined and $_ eq 'foo' } map { $_->attr('id') } @inputs),
+    0,
+    "the id argument is ignored",
+  );
   
   my @selected = $tree->look_down(sub { $_[0]->attr('checked') });
 
