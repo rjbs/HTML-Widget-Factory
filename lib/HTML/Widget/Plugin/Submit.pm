@@ -6,7 +6,7 @@ package HTML::Widget::Plugin::Submit;
 use HTML::Widget::Plugin::Input ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
-our $VERSION = '0.070';
+our $VERSION = '0.080';
 
 =head1 NAME
 
