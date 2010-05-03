@@ -112,7 +112,6 @@ sub radio {
 
     my $widget = HTML::Element->new('input', type => 'radio');
     $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
-    # XXX document
 
     $id = "$arg->{attr}{name}-$value"
       if ! defined $id and defined $arg->{attr}{name};
@@ -125,7 +124,7 @@ sub radio {
       if defined $arg->{value} and $arg->{value} eq $value;
 
     push @widgets, $widget;
-    push @widgets, defined $id
+    push @widgets, (! $arg->{parts} and defined $id)
       ? HTML::Element->new_from_lol([ label => $text => { for => $id } ])
       : HTML::Element->new('~literal', text => $text);
   }
