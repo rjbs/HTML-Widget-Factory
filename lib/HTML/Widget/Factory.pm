@@ -11,11 +11,11 @@ HTML::Widget::Factory - churn out HTML widgets
 
 =head1 VERSION
 
-version 0.080
+version 0.081
 
 =cut
 
-our $VERSION = '0.080';
+our $VERSION = '0.081';
 
 =head1 SYNOPSIS
 

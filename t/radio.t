@@ -57,7 +57,7 @@ local $SIG{__WARN__} = sub {
 { # make a set of radio buttons
   my ($html, $tree) = widget(radio => {
     options => [
-      [ 0 => 'zero' ],
+      [ 0 => 'zero<br />' ],
       [ 1 => 'one'  ],
       [ 2 => 'two'  ],
     ],

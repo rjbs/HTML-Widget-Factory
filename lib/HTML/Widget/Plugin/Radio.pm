@@ -6,7 +6,7 @@ package HTML::Widget::Plugin::Radio;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
-our $VERSION = '0.080';
+our $VERSION = '0.081';
 
 =head1 NAME
 
@@ -124,9 +124,15 @@ sub radio {
       if defined $arg->{value} and $arg->{value} eq $value;
 
     push @widgets, $widget;
-    push @widgets, (! $arg->{parts} and defined $id)
-      ? HTML::Element->new_from_lol([ label => $text => { for => $id } ])
-      : HTML::Element->new('~literal', text => $text);
+
+    my $text_elem = HTML::Element->new('~literal', text => $text);
+    if (! $arg->{parts} and defined $id) {
+      my $label = HTML::Element->new(label => (for => $id));
+      $label->push_content($text_elem);
+      push @widgets, $label;
+    } else {
+      push @widgets, $text_elem;
+    }
   }
 
   # XXX document

@@ -1,5 +1,9 @@
 Revision history for HTML-Widget-Factory
 
+0.081     2010-05-03
+          when emitting <label> for radio, assume label is literal HTML
+          for backcompat
+
 0.080     2010-05-03
           switch from Class::ISA to MRO::Compat
           radio inputs now produce their content as label elements, not text
