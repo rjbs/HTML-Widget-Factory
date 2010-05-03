@@ -1,5 +1,9 @@
 Revision history for HTML-Widget-Factory
 
+0.080     2010-05-03
+          switch from Class::ISA to MRO::Compat
+          fix "disabled" to be an attribute arg on input
+
 0.070     2009-06-30
           add SYNOPSIS section to plugins for quick reference
 

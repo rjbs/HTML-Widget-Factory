@@ -4,6 +4,7 @@ all_from 'lib/HTML/Widget/Factory.pm';
 requires 'HTML::Element'      => 0.00;
 requires 'List::MoreUtils'    => 0.00;
 requires 'Module::Pluggable'  => 2.9;
+requires 'MRO::Compat'        => 0.000; # unknown
 requires 'Package::Generator' => 0.100;
 requires 'Package::Reaper'    => 0.100;
 requires 'Sub::Install'       => 0.000; # unknown

@@ -1,8 +1,9 @@
 use 5.006;
 use strict;
 use warnings;
-
 package HTML::Widget::Factory;
+
+use MRO::Compat;
 
 =head1 NAME
 
@@ -137,7 +138,7 @@ sub provides_widget {
   my ($class, $name) = @_;
   $class = ref $class if ref $class;
 
-  for (Class::ISA::self_and_super_path($class)) {
+  for (@{ mro::get_linear_isa($class) }) {
     no strict 'refs';
     my %pw = %{"$_\::_provided_widgets"};
     return 1 if exists $pw{ $name };
@@ -161,7 +162,7 @@ sub provided_widgets {
 
   my %provided;
 
-  for (Class::ISA::self_and_super_path($class)) {
+  for (@{ mro::get_linear_isa($class) }) {
     no strict 'refs';
     my %pw = %{"$_\::_provided_widgets"};
     @provided{ keys %pw } = (1) x (keys %pw);
