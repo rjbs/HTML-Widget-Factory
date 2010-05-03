@@ -1,8 +1,8 @@
-#!perl -T
+#!perl
 use strict;
 use warnings;
 
-use Test::More tests => 9;
+use Test::More tests => 11;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -36,6 +36,24 @@ use Test::WidgetFactory;
     $input->attr('class'),
     'orange',
     "class passed through",
+  );
+}
+
+{ # make a disabled input field
+  my ($html, $tree) = widget(input => {
+    name  => 'flavor',
+    value => 'minty',
+    disabled => 1,
+  });
+  
+  my ($input) = $tree->look_down(_tag => 'input');
+
+  isa_ok($input, 'HTML::Element');
+
+  is(
+    $input->attr('disabled'),
+    'disabled',
+    "disabled is a bool arg",
   );
 }
 

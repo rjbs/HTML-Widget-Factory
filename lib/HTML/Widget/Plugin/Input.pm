@@ -68,7 +68,7 @@ different plugin, instead.
 
 =cut
 
-sub _attribute_args { qw(type value size maxlength) }
+sub _attribute_args { qw(disabled type value size maxlength) }
 sub _boolean_args   { qw(disabled) }
 
 sub input {
