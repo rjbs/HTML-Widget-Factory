@@ -8,11 +8,11 @@ HTML::Widget::Plugin - base class for HTML widgets
 
 =head1 VERSION
 
-version 0.081
+version 0.082
 
 =cut
 
-our $VERSION = '0.081';
+our $VERSION = '0.082';
 
 use Carp ();
 use List::MoreUtils qw(uniq);

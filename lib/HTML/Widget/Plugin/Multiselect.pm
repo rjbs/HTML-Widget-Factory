@@ -6,7 +6,7 @@ package HTML::Widget::Plugin::Multiselect;
 use HTML::Widget::Plugin::Select ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Select' };
 
-our $VERSION = '0.081';
+our $VERSION = '0.082';
 
 =head1 NAME
 

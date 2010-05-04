@@ -6,7 +6,7 @@ package HTML::Widget::Plugin::Attrs;
 use HTML::Widget::Plugin ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin' };
 
-our $VERSION = '0.081';
+our $VERSION = '0.082';
 
 =head1 NAME
 

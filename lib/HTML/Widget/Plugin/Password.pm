@@ -6,7 +6,7 @@ package HTML::Widget::Plugin::Password;
 use HTML::Widget::Plugin::Input ();
 BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
 
-our $VERSION = '0.081';
+our $VERSION = '0.082';
 
 =head1 NAME
 

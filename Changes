@@ -1,5 +1,8 @@
 Revision history for HTML-Widget-Factory
 
+0.082     2010-05-04
+          make "disabled" a bool arg for Checkbox
+
 0.081     2010-05-03
           when emitting <label> for radio, assume label is literal HTML
           for backcompat
