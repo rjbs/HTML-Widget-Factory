@@ -61,8 +61,8 @@ is checked.
 
 =cut
 
-sub _attribute_args { qw(checked value) }
-sub _boolean_args   { qw(checked) }
+sub _attribute_args { qw(checked disabled value) }
+sub _boolean_args   { qw(checked disabled) }
 
 sub checkbox {
   my ($self, $factory, $arg) = @_;
