@@ -1,9 +1,9 @@
-#!perl -T
+#!perl
 use strict;
 use warnings;
 
 package Test::WidgetFactory;
-use base qw(Exporter);
+use parent qw(Exporter);
 
 use HTML::TreeBuilder;
 use HTML::Widget::Factory;
