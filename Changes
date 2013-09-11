@@ -1,6 +1,8 @@
 Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
+
+0.083     2013-09-11 10:47:02 America/New_York
         - repackage to update bugtracker and repo
         - stop using -T in test shebangs
         - use parent.pm
