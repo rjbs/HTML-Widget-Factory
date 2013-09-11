@@ -59,8 +59,6 @@ Either of these may contain the text of created link.  If passed as C<html>, it
 is not escaped; if passed as C<text>, it is.  If no text is supplied, the href
 is used.  If both options are provided, an exception is thrown.
 
-=item
-
 =back
 
 =cut
