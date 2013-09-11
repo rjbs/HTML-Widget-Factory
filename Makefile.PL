@@ -1,15 +1,17 @@
-use inc::Module::Install;
-all_from 'lib/HTML/Widget/Factory.pm';
+use ExtUtils::MakeMaker;
 
-requires 'HTML::Element'      => 0.00;
-requires 'List::MoreUtils'    => 0.00;
-requires 'Module::Pluggable'  => 2.9;
-requires 'MRO::Compat'        => 0.000; # unknown
-requires 'Package::Generator' => 0.100;
-requires 'Package::Reaper'    => 0.100;
-requires 'Sub::Install'       => 0.000; # unknown
+require 5.006;
 
-auto_manifest;
-extra_tests;
-
-WriteAll;
+WriteMakefile(
+  'NAME'         => 'HTML::Widget::Factory',
+  'AUTHOR'       => 'Ricardo Signes',
+  'PREREQ_PM'    => {
+    'HTML::Element'      => 0.00,
+    'List::MoreUtils'    => 0.00,
+    'Module::Pluggable'  => 2.9,
+    'MRO::Compat'        => 0.000,  # unknown
+    'Package::Generator' => 0.100,
+    'Package::Reaper'    => 0.100,
+    'Sub::Install'       => 0.000,  # unknown
+  }
+);
