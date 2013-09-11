@@ -2,20 +2,9 @@ use 5.006;
 use strict;
 use warnings;
 package HTML::Widget::Factory;
+# ABSTRACT: churn out HTML widgets
 
 use MRO::Compat;
-
-=head1 NAME
-
-HTML::Widget::Factory - churn out HTML widgets
-
-=head1 VERSION
-
-version 0.082
-
-=cut
-
-our $VERSION = '0.082';
 
 =head1 SYNOPSIS
 
@@ -38,13 +27,13 @@ form controls.
 
 =cut
 
-use Module::Pluggable
+use Module::Pluggable 2.9
   search_path => [ qw(HTML::Widget::Plugin) ],
   sub_name    => '_default_plugins',
   except      => qr/^HTML::Widget::Plugin::Debug/;
 
-use Package::Generator;
-use Package::Reaper;
+use Package::Generator 0.100;
+use Package::Reaper 0.100;
 
 =head1 METHODS
 
@@ -234,17 +223,6 @@ param that matches the passed name.
 =item L<HTML::Element>
 
 =back
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-Development was sponsored by Listbox and Pobox between 2005 and 2007.
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
 
 =cut
 

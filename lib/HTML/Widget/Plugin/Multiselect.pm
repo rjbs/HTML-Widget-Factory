@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Multiselect;
-
-use HTML::Widget::Plugin::Select ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin::Select' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Multiselect - widget for multiple selections from a list
+use parent 'HTML::Widget::Plugin::Select';
+# ABSTRACT: widget for multiple selections from a list
 
 =head1 SYNOPSIS
 
@@ -112,16 +104,5 @@ sub validate_value {
     Carp::croak "provided value '$value' not in given options" unless $matches;
   }
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
-
-=cut
 
 1;

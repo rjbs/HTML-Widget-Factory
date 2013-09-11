@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Link;
-
-use HTML::Widget::Plugin ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Link - a hyperlink
+use parent 'HTML::Widget::Plugin';
+# ABSTRACT: a hyperlink
 
 =head1 SYNOPSIS
 
@@ -67,7 +59,7 @@ Either of these may contain the text of created link.  If passed as C<html>, it
 is not escaped; if passed as C<text>, it is.  If no text is supplied, the href
 is used.  If both options are provided, an exception is thrown.
 
-=item 
+=item
 
 =back
 
@@ -105,16 +97,5 @@ sub link { ## no critic Builtin
   chomp $xml;
   return $xml;
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
-
-=cut
 
 1;

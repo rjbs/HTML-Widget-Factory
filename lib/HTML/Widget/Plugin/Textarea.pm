@@ -1,16 +1,9 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Textarea;
+use parent 'HTML::Widget::Plugin';
 
-use HTML::Widget::Plugin ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Textarea - a widget for a large text entry box
+# ABSTRACT: a widget for a large text entry box
 
 =head1 SYNOPSIS
 
@@ -72,16 +65,5 @@ sub textarea {
 
   return $widget->as_XML;
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
-
-=cut
 
 1;

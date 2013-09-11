@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Image;
-
-use HTML::Widget::Plugin ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Image - an image object
+use parent 'HTML::Widget::Plugin';
+# ABSTRACT: an image object
 
 =head1 SYNOPSIS
 
@@ -64,7 +56,7 @@ sub _attribute_args { qw(src alt) }
 
 sub image {
   my ($self, $factory, $arg) = @_;
-  
+
   if ($arg->{attr}{src} and $arg->{href}) {
     Carp::croak "don't provide both href and src for image widget";
   }
@@ -79,16 +71,5 @@ sub image {
 
   return $widget->as_XML;
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2007, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
-
-=cut
 
 1;

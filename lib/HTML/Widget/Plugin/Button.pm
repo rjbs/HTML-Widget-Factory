@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Button;
-
-use HTML::Widget::Plugin ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Button - a button for clicking
+use parent 'HTML::Widget::Plugin';
+# ABSTRACT: a button for clicking
 
 =head1 SYNOPSIS
 
@@ -130,16 +122,5 @@ sub build {
 
   return $widget->as_XML;
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2007, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
-
-=cut
 
 1;

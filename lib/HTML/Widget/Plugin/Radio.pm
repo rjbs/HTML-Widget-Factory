@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Radio;
-
-use HTML::Widget::Plugin ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Radio - a widget for sets of radio buttons
+use parent 'HTML::Widget::Plugin';
+# ABSTRACT: a widget for sets of radio buttons
 
 =head1 SYNOPSIS
 
@@ -164,16 +156,5 @@ sub validate_value {
     }
   }
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
-
-=cut
 
 1;

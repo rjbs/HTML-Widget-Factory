@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Password;
-
-use HTML::Widget::Plugin::Input ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Password - for SECRET input
+use parent 'HTML::Widget::Plugin::Input';
+# ABSTRACT: for SECRET input
 
 =head1 SYNOPSIS
 
@@ -74,16 +66,5 @@ sub rewrite_arg {
 
   return $arg;
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
-
-=cut
 
 1;

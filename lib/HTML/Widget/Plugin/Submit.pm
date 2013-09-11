@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Submit;
-
-use HTML::Widget::Plugin::Input ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin::Input' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Submit - for submit type inputs
+use parent 'HTML::Widget::Plugin::Input';
+# ABSTRACT: for submit type inputs
 
 =head1 SYNOPSIS
 
@@ -64,16 +56,5 @@ sub submit {
 
   $self->build($factory, $arg);
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2007, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
-
-=cut
 
 1;

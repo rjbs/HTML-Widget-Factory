@@ -1,18 +1,7 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin;
-
-=head1 NAME
-
-HTML::Widget::Plugin - base class for HTML widgets
-
-=head1 VERSION
-
-version 0.082
-
-=cut
-
-our $VERSION = '0.082';
+# ABSTRACT: base class for HTML widgets
 
 use Carp ();
 use List::MoreUtils qw(uniq);
@@ -74,7 +63,7 @@ sub attribute_args {
   }
 
   return uniq @attributes;
-}   
+}
 
 sub _attribute_args { qw(id name class tabindex) }
 
@@ -138,7 +127,7 @@ sub import {
       my $pw = \%{"$target\::_provided_widgets"};
       $pw->{ $install_to } = 1;
     }
-  
+
     Carp::croak
       "$class claims to provide widget '$widget' but has no such method"
       unless $class->can($widget);
@@ -155,16 +144,5 @@ sub import {
     });
   }
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2005-2007, Ricardo SIGNES.  This is free software, released under
-the same terms as perl itself.
-
-=cut
 
 1;

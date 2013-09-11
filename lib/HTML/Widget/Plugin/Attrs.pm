@@ -1,16 +1,8 @@
 use strict;
 use warnings;
-
 package HTML::Widget::Plugin::Attrs;
-
-use HTML::Widget::Plugin ();
-BEGIN { our @ISA = 'HTML::Widget::Plugin' };
-
-our $VERSION = '0.082';
-
-=head1 NAME
-
-HTML::Widget::Plugin::Attrs - an HTML attribute string
+use parent 'HTML::Widget::Plugin';
+# ABSTRACT: an HTML attribute string
 
 =head1 DESCRIPTION
 
@@ -79,7 +71,7 @@ sub attrs {
 
   my %bool;
   $bool{lc $_} = 1 for @{ $arg->{-bool} || [] };
-  
+
   require HTML::Tagset;
   if ($arg->{-tag} and my $entry = $HTML::Tagset::boolean_attr{$arg->{-tag}}) {
     $bool{lc $_} = 1 for (ref $entry ? keys %$entry : $entry);
@@ -102,16 +94,5 @@ sub attrs {
 
   return $str;
 }
-
-=head1 AUTHOR
-
-Ricardo SIGNES <C<rjbs @ cpan.org>>
-
-=head1 COPYRIGHT
-
-Copyright (C) 2008, Ricardo SIGNES.  This is free software, released under the
-same terms as perl itself.
-
-=cut
 
 1;
