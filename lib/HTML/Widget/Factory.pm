@@ -99,14 +99,24 @@ sub __mix_in {
       Sub::Install::install_sub({
         into => $class,
         as   => $install_to,
-        code => sub {
-          my ($self, $given_arg) = @_;
-          my $arg = $plugin->rewrite_arg($given_arg);
-
-          $plugin->$widget($self, $arg);
-        }
+        code => $class->_generate_widget_method({
+          plugin => $plugin,
+          widget => $widget,
+        }),
       });
     }
+  }
+}
+
+sub _generate_widget_method {
+  my (undef, $arg) = @_;
+  my $plugin = $arg->{plugin};
+  my $widget = $arg->{widget};
+  return sub {
+    my ($self, $given_arg) = @_;
+    my $arg = $plugin->rewrite_arg($given_arg);
+
+    $plugin->$widget($self, $arg);
   }
 }
 
