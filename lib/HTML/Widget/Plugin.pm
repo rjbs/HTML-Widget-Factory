@@ -95,7 +95,7 @@ sub _boolean_args { () }
 =head2 C< provided_widgets >
 
 This method should be implemented by any plugin.  It returns a list of method
-names which should be imported from the plugin into HTML::Widget::Factory.
+names which a factor should delegate to this plugin.
 
 =cut
 
