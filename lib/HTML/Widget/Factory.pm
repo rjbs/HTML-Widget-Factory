@@ -73,7 +73,40 @@ sub __mix_in {
               Package::Generator->package_exists($plugin)) {
       eval "require $plugin; 1" or die $@; ## no critic Carp
     }
-    $plugin->import({ into => $class });
+
+    my @widgets = $plugin->provided_widgets;
+
+    for my $widget (@widgets) {
+      my $install_to = $widget;
+      ($widget, $install_to) = @$widget if ref $widget;
+
+      # XXX: This is awkward because it checks ->can instead of provides_widget.
+      # This may be for the best since you don't want a widget called "new"
+      # -- rjbs, 2008-05-06
+      Carp::croak "$class can already provide widget '$widget'"
+        if $class->can($install_to);
+
+      Carp::croak
+        "$plugin claims to provide widget '$widget' but has no such method"
+        unless $plugin->can($widget);
+
+      {
+        no strict 'refs';
+        my $pw = \%{"$class\::_provided_widgets"};
+        $pw->{ $install_to } = 1;
+      }
+
+      Sub::Install::install_sub({
+        into => $class,
+        as   => $install_to,
+        code => sub {
+          my ($self, $given_arg) = @_;
+          my $arg = $plugin->rewrite_arg($given_arg);
+
+          $plugin->$widget($self, $arg);
+        }
+      });
+    }
   }
 }
 

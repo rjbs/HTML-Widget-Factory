@@ -104,45 +104,4 @@ sub provided_widgets {
     "something called abstract provided_widgets in HTML::Widget::Plugin";
 }
 
-sub import {
-  my ($class, $arg) = @_;
-  $arg ||= {};
-
-  my $target = $arg->{into} ||= caller(0);
-
-  my @widgets = $class->provided_widgets;
-
-  for my $widget (@widgets) {
-    my $install_to = $widget;
-    ($widget, $install_to) = @$widget if ref $widget;
-
-    # XXX: This is awkward because it checks ->can instead of provides_widget.
-    # This may be for the best since you don't want a widget called "new"
-    # -- rjbs, 2008-05-06
-    Carp::croak "$target can already provide widget '$widget'"
-      if $target->can($install_to);
-
-    {
-      no strict 'refs';
-      my $pw = \%{"$target\::_provided_widgets"};
-      $pw->{ $install_to } = 1;
-    }
-
-    Carp::croak
-      "$class claims to provide widget '$widget' but has no such method"
-      unless $class->can($widget);
-
-    Sub::Install::install_sub({
-      into => $target,
-      as   => $install_to,
-      code => sub {
-        my ($self, $given_arg) = @_;
-        my $arg = $class->rewrite_arg($given_arg);
-
-        $class->$widget($self, $arg);
-      }
-    });
-  }
-}
-
 1;
