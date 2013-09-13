@@ -120,24 +120,27 @@ sub _generate_widget_method {
   }
 }
 
-my @_default_plugins;
-my $_default_class;
-BEGIN {
-  @_default_plugins = __PACKAGE__->_default_plugins;
+my %_default_class;
 
-  $_default_class = __PACKAGE__->__new_class;
-
-  $_default_class->__mix_in(@_default_plugins);
+sub _default_class {
+  $_default_class{ $_[0] } ||= do {
+    my $base  = $_[0];
+    my $class = $base->__new_class;
+    $class->__mix_in($base->_default_plugins);
+    $class;
+  };
 }
 
 sub new {
   my ($class, $arg) = @_;
   $arg ||= {};
 
-  my $obj_class = $_default_class;
+  my $obj_class = ref $class ? (ref $class) : $class->_default_class;
   my $reaper;
 
-  my @plugins = $arg->{plugins} ? @{ $arg->{plugins} } : @_default_plugins;
+  my @plugins = $arg->{plugins}
+              ? @{ $arg->{plugins} }
+              : $class->_default_plugins;
 
   if ($arg->{plugins} or $arg->{extra_plugins}) {
     $obj_class = $class->__new_class;
