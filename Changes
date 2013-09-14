@@ -2,6 +2,11 @@ Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
 
+0.101     2013-09-14 18:35:29 America/New_York
+        - fix bugs in default object caching; this code really needs to be
+          slashed, burned, and replanted
+        - fix bugs in dist metadata
+
 0.100     2013-09-12 14:53:50 America/New_York
         - plugins are no longer exporters; the factory factory interrogates
           them to build the new factory
