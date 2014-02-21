@@ -4,6 +4,8 @@ use warnings;
 package HTML::Widget::Factory;
 # ABSTRACT: churn out HTML widgets
 
+use Carp ();
+use Module::Load ();
 use MRO::Compat;
 
 =head1 SYNOPSIS
@@ -27,14 +29,6 @@ form controls.
 
 =cut
 
-use Module::Pluggable 2.9
-  search_path => [ qw(HTML::Widget::Plugin) ],
-  sub_name    => '_default_plugins',
-  except      => qr/^HTML::Widget::Plugin::Debug/;
-
-use Package::Generator 0.100;
-use Package::Reaper 0.100;
-
 =head1 METHODS
 
 Most of the useful methods in an HTML::Widget::Factory object will be installed
@@ -55,111 +49,75 @@ to these.
 
 =cut
 
-sub __new_class {
-  my ($class) = @_;
-  $class = ref $class if ref $class;
-
-  my $obj_class = Package::Generator->new_package({
-    base => "$class\::GENERATED",
-    isa  => $class,
-  });
-}
-
-sub __mix_in {
-  my ($class, @plugins) = @_;
-
-  for my $plugin (@plugins) {
-    unless ($plugin =~ /::(__)?GENERATED\1::/ and
-              Package::Generator->package_exists($plugin)) {
-      eval "require $plugin; 1" or die $@; ## no critic Carp
-    }
-
-    my @widgets = $plugin->provided_widgets;
-
-    for my $widget (@widgets) {
-      my $install_to = $widget;
-      ($widget, $install_to) = @$widget if ref $widget;
-
-      # XXX: This is awkward because it checks ->can instead of provides_widget.
-      # This may be for the best since you don't want a widget called "new"
-      # -- rjbs, 2008-05-06
-      # Carp::croak "$class can already provide widget '$widget'"
-        # if $class->can($install_to);
-
-      Carp::croak
-        "$plugin claims to provide widget '$widget' but has no such method"
-        unless $plugin->can($widget);
-
-      {
-        no strict 'refs';
-        my $pw = \%{"$class\::_provided_widgets"};
-        $pw->{ $install_to } = 1;
-      }
-
-      Sub::Install::install_sub({
-        into => $class,
-        as   => $install_to,
-        code => $class->_generate_widget_method({
-          plugin => $plugin,
-          widget => $widget,
-        }),
-      });
-    }
-  }
-}
-
-sub _generate_widget_method {
-  my (undef, $arg) = @_;
-  my $plugin = $arg->{plugin};
-  my $widget = $arg->{widget};
-  return sub {
-    my ($self, $given_arg) = @_;
-    my $arg = $plugin->rewrite_arg($given_arg);
-
-    $plugin->$widget($self, $arg);
-  }
-}
-
-my %_default_class;
-
-sub _default_class {
-  $_default_class{ $_[0] } ||= do {
-    my $base  = $_[0];
-    my $class = $base->__new_class;
-    $class->__mix_in($base->_default_plugins);
-    $class;
-  };
-}
-
 my %default_instance;
 sub _default_instance {
-  $default_instance{ $_[0] } ||= $_[0]->default_class->new;
+  $default_instance{ $_[0] } ||= $_[0]->new;
+}
+
+my $LOADED_DEFAULTS;
+my @DEFAULT_PLUGINS = qw(
+  HTML::Widget::Plugin::Attrs
+  HTML::Widget::Plugin::Button
+  HTML::Widget::Plugin::Checkbox
+  HTML::Widget::Plugin::Image
+  HTML::Widget::Plugin::Input
+  HTML::Widget::Plugin::Link
+  HTML::Widget::Plugin::Multiselect
+  HTML::Widget::Plugin::Password
+  HTML::Widget::Plugin::Radio
+  HTML::Widget::Plugin::Select
+  HTML::Widget::Plugin::Submit
+  HTML::Widget::Plugin::Textarea
+);
+
+sub _default_plugins {
+  $LOADED_DEFAULTS ||= do {
+    Module::Load::load("$_") for @DEFAULT_PLUGINS;
+    1;
+  };
+  return @DEFAULT_PLUGINS;
 }
 
 sub new {
-  my ($class, $arg) = @_;
+  my ($self, $arg) = @_;
   $arg ||= {};
 
-  my $obj_class = ref $class ? (ref $class) : $class->_default_class;
+  my $class = ref $self || $self;
 
+  # XXX: I think we need to use default plugins when new is invoked on the
+  # class, but get the parent object's plugins when it's called on an existing
+  # factory. -- rjbs, 2014-02-21
   my @plugins = $arg->{plugins}
               ? @{ $arg->{plugins} }
               : $class->_default_plugins;
 
-  unshift @plugins, @{ $class->{plugins} } if ref $class;
+  unshift @plugins, @{ $self->{plugins} } if ref $self;
 
   if ($arg->{plugins} or $arg->{extra_plugins}) {
-    $obj_class = $class->__new_class;
-
     push @plugins, @{ $arg->{extra_plugins} } if $arg->{extra_plugins};
+  }
 
-    $obj_class->__mix_in(@plugins);
+  my %widget;
+  for my $plugin (@plugins) {
+    for my $widget ($plugin->provided_widgets) {
+      my ($method, $name) = ref $widget ? @$widget : ($widget) x 2;
+
+      Carp::croak "$plugin tried to provide $name, already provided by $widget{$name}{plugin}"
+        if $widget{$name};
+
+      Carp::croak
+        "$plugin claims to provide widget via ->$method but has no such method"
+        unless $plugin->can($method);
+
+      $widget{$name} = { plugin => $plugin, method => $method };
+    }
   }
 
   # for some reason PPI/Perl::Critic think this is multiple statements:
   bless { ## no critic
     plugins => \@plugins,
-  } => $obj_class;
+    widgets => \%widget,
+  } => $class;
 }
 
 =head2 provides_widget
@@ -176,12 +134,7 @@ sub provides_widget {
   my ($self, $name) = @_;
   $self = $self->_default_instance unless ref $self;
 
-  for my $plugin (@{ $self->{plugins} }) {
-    # XXX: replace with something much faster, by mapping (name => method) at
-    # initialization time
-    my @provided = map  { ref $_ ? $_->[1] : $_ } $plugin->provided_widgets;
-    return 1 if grep { $name eq $_ } @provided;
-  }
+  return 1 if $self->{widgets}{$name};
 
   return;
 }
@@ -196,20 +149,42 @@ this factory.
 =cut
 
 sub provided_widgets {
-  my ($class) = @_;
-  $class = ref $class if ref $class;
+  my ($self) = @_;
+  $self = $self->_default_instance unless ref $self;
 
-  my %provided;
-
-  for (@{ mro::get_linear_isa($class) }) {
-    no strict 'refs';
-    my %pw = %{"$_\::_provided_widgets"};
-    @provided{ keys %pw } = (1) x (keys %pw);
-  }
-
-  return keys %provided;
+  return keys %{ $self->{widgets} };
 }
 
+my $ErrorMsg = qq{Can\'t locate object method "%s" via package "%s" }.
+               qq{at %s line %d.\n};
+
+sub AUTOLOAD {
+  my $widget_name = our $AUTOLOAD;
+  $widget_name =~ s/.*:://;
+
+  my ($self, $given_arg) = @_;
+  my $class = ref $self || $self;
+  my $howto = $self->{widgets}{$widget_name};
+
+  unless ($howto) {
+    my ($callpack, $callfile, $callline) = caller;
+    die sprintf $ErrorMsg, $widget_name, $class, $callfile, $callline;
+  }
+
+  my ($plugin, $method) = @$howto{qw(plugin method)};
+  my $arg = $plugin->rewrite_arg($given_arg);
+
+  return $plugin->$method($self, $arg);
+}
+
+sub can {
+  my ($self, $method) = @_;
+
+  return sub { $self->$method(@_) }
+    if ref $self and $self->{widgets}{$method};
+
+  return $self->SUPER::can($method);
+}
 
 =head2 plugins
 
