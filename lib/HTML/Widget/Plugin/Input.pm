@@ -23,6 +23,13 @@ use parent 'HTML::Widget::Plugin';
 
 This plugin provides a basic input widget.
 
+The C<default_classes> attribute may be used to add a default class to every
+produced input.  This class cannot be overridden.
+
+  my $plugin = HTML::Widget::Factory::Input->new({
+    default_classes => [ qw(foo bar) ],
+  });
+
 =cut
 
 use HTML::Element;

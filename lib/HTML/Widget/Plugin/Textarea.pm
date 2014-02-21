@@ -16,6 +16,13 @@ use parent 'HTML::Widget::Plugin';
 
 This plugin provides a text-entry area widget.
 
+The C<default_classes> attribute may be used to add a default class to every
+produced input.  This class cannot be overridden.
+
+  my $plugin = HTML::Widget::Factory::Input->new({
+    default_classes => [ qw(foo bar) ],
+  });
+
 =head1 METHODS
 
 =head2 C< provided_widgets >
