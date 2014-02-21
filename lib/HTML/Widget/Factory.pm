@@ -175,7 +175,7 @@ sub AUTOLOAD {
   }
 
   my ($plugin, $method) = @$howto{qw(plugin method)};
-  my $arg = $plugin->rewrite_arg($given_arg);
+  my $arg = $plugin->rewrite_arg($given_arg, $method);
 
   return $plugin->$method($self, $arg);
 }

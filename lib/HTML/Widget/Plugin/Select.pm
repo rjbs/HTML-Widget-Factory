@@ -161,4 +161,20 @@ sub validate_value {
   }
 }
 
+sub rewrite_arg {
+  my ($self, $arg) = @_;
+
+  $arg = $self->SUPER::rewrite_arg($arg);
+
+  if ($self->{default_classes}) {
+    my $class = join q{ }, @{ $self->{default_classes} };
+    $arg->{attr}{class} = defined $arg->{attr}{class}
+      ? "$class $arg->{attr}{class}"
+      : $class;
+  }
+
+  return $arg;
+}
+
+
 1;

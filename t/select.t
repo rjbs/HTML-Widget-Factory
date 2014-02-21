@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 23;
+use Test::More tests => 30;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -20,7 +20,7 @@ use Test::WidgetFactory;
     name  => 'flavor',
     value => 'minty',
   });
-  
+
   my ($select) = $tree->look_down(_tag => 'select');
 
   isa_ok($select, 'HTML::Element');
@@ -52,7 +52,7 @@ use Test::WidgetFactory;
     name  => 'flavor',
     value => 'minty',
   });
-  
+
   my ($select) = $tree->look_down(_tag => 'select');
 
   isa_ok($select, 'HTML::Element');
@@ -66,7 +66,7 @@ use Test::WidgetFactory;
   my @options = $select->look_down(_tag => 'option');
 
   is(@options, 3, "we created three options");
-  
+
   my @selected = $select->look_down(sub { $_[0]->attr('selected') });
 
   is(@selected, 1, "only one option is selected");
@@ -84,7 +84,7 @@ use Test::WidgetFactory;
     name     => 'color',
     disabled => 'yup',
   });
-  
+
   my ($select) = $tree->look_down(_tag => 'select');
 
   isa_ok($select, 'HTML::Element');
@@ -104,6 +104,47 @@ use Test::WidgetFactory;
   my @selected = $select->look_down(sub { $_[0]->attr('selected') });
 
   is(@selected, 0, "we didn't pre-select anything");
+}
+
+{ # default classes
+  my $fac = HTML::Widget::Factory->new({
+    plugins => [
+      'HTML::Widget::Plugin::Attrs',
+      HTML::Widget::Plugin::Select->new({ default_classes => [ 'foo' ] }),
+    ],
+  });
+
+  {
+    my ($html, $tree) = widget($fac, select => {
+      options  => [ qw(red orange yellow green blue indigo violet) ],
+      name     => 'color',
+      disabled => 'yup',
+    });
+
+    my ($select) = $tree->look_down(_tag => 'select');
+
+    isa_ok($select, 'HTML::Element');
+
+    is($select->attr('name'),     'color',    "got correct input name");
+    is($select->attr('disabled'), 'disabled', "disabled set true as a bool");
+    is($select->attr('class'),    'foo',      "default class on select");
+  }
+
+  {
+    my ($html, $tree) = widget($fac, select => {
+      options  => [ qw(red orange yellow green blue indigo violet) ],
+      name     => 'color',
+      disabled => 'yup',
+      class    => 'bar baz',
+    });
+
+    my ($select) = $tree->look_down(_tag => 'select');
+
+    isa_ok($select, 'HTML::Element');
+
+    is($select->attr('name'),  'color',       "got correct input name");
+    is($select->attr('class'), 'foo bar baz', "default class on select");
+  }
 }
 
 {

@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 19;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -15,7 +15,7 @@ use Test::WidgetFactory;
     value => 'minty',
     class => 'orange',
   });
-  
+
   my ($input) = $tree->look_down(_tag => 'input');
 
   isa_ok($input, 'HTML::Element');
@@ -45,7 +45,7 @@ use Test::WidgetFactory;
     value => 'minty',
     disabled => 1,
   });
-  
+
   my ($input) = $tree->look_down(_tag => 'input');
 
   isa_ok($input, 'HTML::Element');
@@ -62,7 +62,7 @@ use Test::WidgetFactory;
     id    => 'secret',
     value => '123-432-345-654',
   });
-  
+
   my ($input) = $tree->look_down(_tag => 'input');
 
   isa_ok($input, 'HTML::Element');
@@ -84,4 +84,44 @@ use Test::WidgetFactory;
     'hidden',
     'got a hidden input',
   );
+}
+
+{ # default classes
+  my $fac = HTML::Widget::Factory->new({
+    plugins => [
+      'HTML::Widget::Plugin::Attrs',
+      HTML::Widget::Plugin::Input->new({ default_classes => [ 'foo' ] }),
+    ],
+  });
+
+  {
+    my ($html, $tree) = widget($fac, input => {
+      id    => 'secret',
+      value => '123-432-345-654',
+    });
+
+    my ($input) = $tree->look_down(_tag => 'input');
+
+    isa_ok($input, 'HTML::Element');
+
+    is($input->attr('name'),  'secret',          "got correct input name");
+    is($input->attr('value'), '123-432-345-654', "got correct form value");
+    is($input->attr('class'), 'foo',             "got correct class");
+  }
+
+  {
+    my ($html, $tree) = widget($fac, input => {
+      id    => 'secret',
+      value => '123-432-345-654',
+      class => 'bar baz',
+    });
+
+    my ($input) = $tree->look_down(_tag => 'input');
+
+    isa_ok($input, 'HTML::Element');
+
+    is($input->attr('name'),  'secret',          "got correct input name");
+    is($input->attr('value'), '123-432-345-654', "got correct form value");
+    is($input->attr('class'), 'foo bar baz',     "got correct class");
+  }
 }
