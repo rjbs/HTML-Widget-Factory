@@ -83,8 +83,8 @@ sub __mix_in {
       # XXX: This is awkward because it checks ->can instead of provides_widget.
       # This may be for the best since you don't want a widget called "new"
       # -- rjbs, 2008-05-06
-      Carp::croak "$class can already provide widget '$widget'"
-        if $class->can($install_to);
+      # Carp::croak "$class can already provide widget '$widget'"
+        # if $class->can($install_to);
 
       Carp::croak
         "$plugin claims to provide widget '$widget' but has no such method"
@@ -131,16 +131,22 @@ sub _default_class {
   };
 }
 
+my %default_instance;
+sub _default_instance {
+  $default_instance{ $_[0] } ||= $_[0]->default_class->new;
+}
+
 sub new {
   my ($class, $arg) = @_;
   $arg ||= {};
 
   my $obj_class = ref $class ? (ref $class) : $class->_default_class;
-  my $reaper;
 
   my @plugins = $arg->{plugins}
               ? @{ $arg->{plugins} }
               : $class->_default_plugins;
+
+  unshift @plugins, @{ $class->{plugins} } if ref $class;
 
   if ($arg->{plugins} or $arg->{extra_plugins}) {
     $obj_class = $class->__new_class;
@@ -148,13 +154,10 @@ sub new {
     push @plugins, @{ $arg->{extra_plugins} } if $arg->{extra_plugins};
 
     $obj_class->__mix_in(@plugins);
-
-    $reaper = Package::Reaper->new($obj_class);
   }
 
   # for some reason PPI/Perl::Critic think this is multiple statements:
   bless { ## no critic
-    ($reaper ? (reaper => $reaper) : ()),
     plugins => \@plugins,
   } => $obj_class;
 }
@@ -170,13 +173,14 @@ a given widget.
 =cut
 
 sub provides_widget {
-  my ($class, $name) = @_;
-  $class = ref $class if ref $class;
+  my ($self, $name) = @_;
+  $self = $self->_default_instance unless ref $self;
 
-  for (@{ mro::get_linear_isa($class) }) {
-    no strict 'refs';
-    my %pw = %{"$_\::_provided_widgets"};
-    return 1 if exists $pw{ $name };
+  for my $plugin (@{ $self->{plugins} }) {
+    # XXX: replace with something much faster, by mapping (name => method) at
+    # initialization time
+    my @provided = map  { ref $_ ? $_->[1] : $_ } $plugin->provided_widgets;
+    return 1 if grep { $name eq $_ } @provided;
   }
 
   return;
