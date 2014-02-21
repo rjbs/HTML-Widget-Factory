@@ -97,6 +97,9 @@ sub new {
     push @plugins, @{ $arg->{extra_plugins} } if $arg->{extra_plugins};
   }
 
+  # make sure plugins given as classes become objects
+  ref $_ or $_ = $_->new for @plugins;
+
   my %widget;
   for my $plugin (@plugins) {
     for my $widget ($plugin->provided_widgets) {

@@ -6,6 +6,7 @@ use Test::More;
 use HTML::Widget::Factory;
 
 my @expected = qw(
+  HTML::Widget::Plugin::Attrs
   HTML::Widget::Plugin::Button
   HTML::Widget::Plugin::Checkbox
   HTML::Widget::Plugin::Image
@@ -28,7 +29,7 @@ isa_ok($factory, 'HTML::Widget::Factory');
 my @plugins = $factory->plugins;
 for my $plugin (@expected) {
   ok(
-    (grep { $_ eq $plugin } @plugins),
+    (grep { $_->isa($plugin) } @plugins),
     "core plugin $plugin found",
   );
 }

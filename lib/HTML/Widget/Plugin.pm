@@ -6,6 +6,7 @@ package HTML::Widget::Plugin;
 use Carp ();
 use List::MoreUtils qw(uniq);
 use MRO::Compat;
+use Scalar::Util qw(reftype);
 use Sub::Install;
 
 =head1 DESCRIPTION
@@ -14,7 +15,44 @@ This class provides a simple way to write plugins for HTML::Widget::Factory.
 
 =head1 METHODS
 
-=head2 C< rewrite_arg >
+=head2 new
+
+  my $plugin = Plugin->new( \%arg );
+
+The default plugin constructor is really simple.  It requires that the argument
+is either a hashref or not given.
+
+=cut
+
+sub new {
+  my ($class, $arg) = @_;
+  $arg = {} unless defined $arg;
+
+  Carp::confess("illegal argument to $class->new: $arg")
+    unless ref $arg and reftype $arg eq 'HASH';
+
+  my @attribute_args;
+  for (@{ mro::get_linear_isa($class) }) {
+    next unless $_->can('_attribute_args');
+    push @attribute_args, $_->_attribute_args(@_);
+  }
+  @attribute_args = uniq @attribute_args;
+
+  my @boolean_args;
+  for ($class, @{ mro::get_linear_isa($class) }) {
+    next unless $_->can('_boolean_args');
+    push @boolean_args, $_->_boolean_args(@_);
+  }
+  @boolean_args = uniq @boolean_args;
+
+  bless {
+    %$arg,
+    _attribute_args => \@attribute_args,
+    _boolean_args   => \@boolean_args,
+  }, $class;
+}
+
+=head2 rewrite_arg
 
  $arg = $plugin->rewrite_arg($arg);
 
@@ -54,15 +92,8 @@ results are then returned.
 =cut
 
 sub attribute_args {
-  my ($class) = shift;
-  my @attributes;
-
-  for (@{ mro::get_linear_isa($class) }) {
-    next unless $_->can('_attribute_args');
-    push @attributes, $_->_attribute_args(@_);
-  }
-
-  return uniq @attributes;
+  my ($self) = shift;
+  return @{ $self->{_attribute_args} };
 }
 
 sub _attribute_args { qw(id name class tabindex) }
@@ -79,15 +110,8 @@ results are then returned.
 =cut
 
 sub boolean_args {
-  my ($class) = shift;
-  my @attributes;
-
-  for ($class, @{ mro::get_linear_isa($class) }) {
-    next unless $_->can('_boolean_args');
-    push @attributes, $_->_boolean_args(@_);
-  }
-
-  return @attributes;
+  my ($self) = shift;
+  return @{ $self->{_boolean_args} };
 }
 
 sub _boolean_args { () }
