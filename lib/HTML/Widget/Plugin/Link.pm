@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Link;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: a hyperlink
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

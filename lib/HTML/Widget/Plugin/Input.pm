@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Input;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: the most basic input widget
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Multiselect;
-use parent 'HTML::Widget::Plugin::Select';
 # ABSTRACT: widget for multiple selections from a list
+
+use parent 'HTML::Widget::Plugin::Select';
 
 =head1 SYNOPSIS
 

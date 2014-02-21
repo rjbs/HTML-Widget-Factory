@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Radio;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: a widget for sets of radio buttons
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

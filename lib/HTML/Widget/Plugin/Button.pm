@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Button;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: a button for clicking
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

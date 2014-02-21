@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Checkbox;
-use parent 'HTML::Widget::Plugin';
-
 # ABSTRACT: it's either [ ] or [x]
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

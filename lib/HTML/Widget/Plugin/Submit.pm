@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Submit;
-use parent 'HTML::Widget::Plugin::Input';
 # ABSTRACT: for submit type inputs
+
+use parent 'HTML::Widget::Plugin::Input';
 
 =head1 SYNOPSIS
 

@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Select;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: a widget for selection from a list
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

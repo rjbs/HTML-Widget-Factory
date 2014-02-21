@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Password;
-use parent 'HTML::Widget::Plugin::Input';
 # ABSTRACT: for SECRET input
+
+use parent 'HTML::Widget::Plugin::Input';
 
 =head1 SYNOPSIS
 

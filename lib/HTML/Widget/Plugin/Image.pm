@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Image;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: an image object
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 

@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Attrs;
-use parent 'HTML::Widget::Plugin';
 # ABSTRACT: an HTML attribute string
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 DESCRIPTION
 

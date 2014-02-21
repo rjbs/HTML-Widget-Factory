@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 package HTML::Widget::Plugin::Textarea;
-use parent 'HTML::Widget::Plugin';
-
 # ABSTRACT: a widget for a large text entry box
+
+use parent 'HTML::Widget::Plugin';
 
 =head1 SYNOPSIS
 
