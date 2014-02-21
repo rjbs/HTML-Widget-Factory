@@ -1,6 +1,11 @@
 Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
+        - plugins are no longer blessed into newly created, managed packages,
+          but use AUTOLOAD to dispatch to plugins
+        - plugins on the factory are stored as objects, not class names
+        - the Input, Password, and Textarea plugins have been given a
+          default_classes attribute
 
 0.101     2013-09-14 18:35:29 America/New_York
         - fix bugs in default object caching; this code really needs to be

@@ -20,6 +20,13 @@ use parent 'HTML::Widget::Plugin';
 
 This plugin provides a select-from-list widget.
 
+The C<default_classes> attribute may be used to add a default class to every
+produced input.  This class cannot be overridden.
+
+  my $plugin = HTML::Widget::Factory::Input->new({
+    default_classes => [ qw(foo bar) ],
+  });
+
 =head1 METHODS
 
 =head2 C< provided_widgets >
@@ -160,5 +167,21 @@ sub validate_value {
     }
   }
 }
+
+sub rewrite_arg {
+  my ($self, $arg) = @_;
+
+  $arg = $self->SUPER::rewrite_arg($arg);
+
+  if ($self->{default_classes}) {
+    my $class = join q{ }, @{ $self->{default_classes} };
+    $arg->{attr}{class} = defined $arg->{attr}{class}
+      ? "$class $arg->{attr}{class}"
+      : $class;
+  }
+
+  return $arg;
+}
+
 
 1;

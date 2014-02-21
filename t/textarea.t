@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 14;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -14,7 +14,7 @@ use Test::WidgetFactory;
     name  => 'big_ol',
     value => 'This is some big old block of text.  Pretend!',
   });
-  
+
   my ($textarea) = $tree->look_down(_tag => 'textarea');
 
   isa_ok($textarea, 'HTML::Element');
@@ -37,7 +37,7 @@ use Test::WidgetFactory;
     id    => 'textarea123',
     value => 'This is some big old block of text.  Pretend!',
   });
-  
+
   my ($textarea) = $tree->look_down(_tag => 'textarea');
 
   isa_ok($textarea, 'HTML::Element');
@@ -59,4 +59,42 @@ use Test::WidgetFactory;
     'This is some big old block of text.  Pretend!',
     "the textarea has the right content"
   );
+}
+
+{ # default classes
+  my $fac = HTML::Widget::Factory->new({
+    plugins => [
+      'HTML::Widget::Plugin::Attrs',
+      HTML::Widget::Plugin::Textarea->new({ default_classes => [ 'foo' ] }),
+    ],
+  });
+
+  {
+    my ($html, $tree) = widget($fac, textarea => {
+      id    => 'textarea123',
+      value => 'This is some big old block of text.  Pretend!',
+    });
+
+    my ($textarea) = $tree->look_down(_tag => 'textarea');
+
+    isa_ok($textarea, 'HTML::Element');
+
+    is($textarea->attr('id'), 'textarea123', "got correct textarea id");
+    is($textarea->attr('class'), 'foo',      "got correct textarea class");
+  }
+
+  {
+    my ($html, $tree) = widget($fac, textarea => {
+      id    => 'textarea123',
+      value => 'This is some big old block of text.  Pretend!',
+      class => 'bar baz',
+    });
+
+    my ($textarea) = $tree->look_down(_tag => 'textarea');
+
+    isa_ok($textarea, 'HTML::Element');
+
+    is($textarea->attr('id'), 'textarea123',    "got correct textarea id");
+    is($textarea->attr('class'), 'foo bar baz', "got correct textarea class");
+  }
 }
