@@ -1,6 +1,8 @@
 Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
+
+0.200     2014-02-21 16:17:04-05:00 America/New_York
         - plugins are no longer blessed into newly created, managed packages,
           but use AUTOLOAD to dispatch to plugins
         - plugins on the factory are stored as objects, not class names
