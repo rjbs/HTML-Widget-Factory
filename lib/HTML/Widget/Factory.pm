@@ -233,6 +233,8 @@ param that matches the passed name.
 
 =over
 
+=item L<HTML::FormHandler>
+
 =item L<HTML::Widget::Plugin>
 
 =item L<HTML::Widget::Plugin::Input>
