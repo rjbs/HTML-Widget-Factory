@@ -167,6 +167,8 @@ sub AUTOLOAD {
   my $widget_name = our $AUTOLOAD;
   $widget_name =~ s/.*:://;
 
+  return if $widget_name eq 'DESTROY' or $widget_name eq 'CLONE';
+
   my ($self, $given_arg) = @_;
   my $class = ref $self || $self;
   my $howto = $self->{widgets}{$widget_name};
