@@ -178,7 +178,12 @@ sub AUTOLOAD {
     die sprintf $ErrorMsg, $widget_name, $class, $callfile, $callline;
   }
 
-  my ($plugin, $method) = @$howto{qw(plugin method)};
+  return $self->_build_widget(@$howto{qw(plugin method)}, $given_arg);
+}
+
+sub _build_widget {
+  my ($self, $plugin, $method, $given_arg) = @_;
+
   my $arg = $plugin->rewrite_arg($given_arg, $method);
 
   return $plugin->$method($self, $arg);
