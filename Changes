@@ -1,6 +1,8 @@
 Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
+
+0.202     2014-06-11 14:24:12-04:00 America/New_York
         - in plugins that subclass Input, be sure to pass all arguments when
           calling SUPER::rewrite_args; this should eliminate some warnings
           when adding default classes
