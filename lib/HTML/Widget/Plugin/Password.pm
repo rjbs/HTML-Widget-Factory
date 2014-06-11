@@ -56,9 +56,9 @@ spaces so that passwords are not inadvertantly sent as plain text.
 =cut
 
 sub rewrite_arg {
-  my ($self, $arg) = @_;
+  my ($self, $arg, @rest) = @_;
 
-  $arg = $self->SUPER::rewrite_arg($arg);
+  $arg = $self->SUPER::rewrite_arg($arg, @rest);
 
   $arg->{attr}{type} = "password";
 

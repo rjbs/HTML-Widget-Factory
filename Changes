@@ -1,6 +1,9 @@
 Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
+        - in plugins that subclass Input, be sure to pass all arguments when
+          calling SUPER::rewrite_args; this should eliminate some warnings
+          when adding default classes
 
 0.201     2014-02-24 13:58:58-05:00 America/New_York
         - fix AUTOLOAD method to skip CLONE and DESTROY

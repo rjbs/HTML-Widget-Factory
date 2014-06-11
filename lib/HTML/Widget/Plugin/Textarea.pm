@@ -74,9 +74,9 @@ sub textarea {
 }
 
 sub rewrite_arg {
-  my ($self, $arg) = @_;
+  my ($self, $arg, @rest) = @_;
 
-  $arg = $self->SUPER::rewrite_arg($arg);
+  $arg = $self->SUPER::rewrite_arg($arg, @rest);
 
   if ($self->{default_classes}) {
     my $class = join q{ }, @{ $self->{default_classes} };
