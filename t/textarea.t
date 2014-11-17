@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
+use Test::More tests => 15;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -30,6 +30,13 @@ use Test::WidgetFactory;
     'This is some big old block of text.  Pretend!',
     "the textarea has the right content"
   );
+}
+
+{ # make a textarea widget
+  my $ok = 1;
+  local $SIG{__WARN__} = sub { $ok = 0; };
+  my ($html, $tree) = widget(textarea => {});
+  ok($ok, "no warnings from valueless textarea");
 }
 
 { # make a textarea widget
