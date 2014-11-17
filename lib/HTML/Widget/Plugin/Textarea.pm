@@ -48,7 +48,8 @@ If true, this option indicates that the widget can't be changed by the user.
 
 =item value
 
-If this argument is given, the widget will be initially populated by its value.
+If this argument is given and defined, the widget will be initially populated
+by its value.
 
 =back
 
@@ -66,9 +67,10 @@ sub textarea {
 
   my $widget = HTML::Element->new('textarea');
 
-  $widget->attr($_ => $arg->{attr}{$_}) for keys %{ $arg->{attr} };
+  $widget->attr($_ => $arg->{attr}{$_})
+    for grep {; defined $arg->{attr}{$_} } keys %{ $arg->{attr} };
 
-  $widget->push_content($arg->{value});
+  $widget->push_content($arg->{value}) if defined $arg->{value};
 
   return $widget->as_XML;
 }
