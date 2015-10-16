@@ -59,11 +59,12 @@ exception.
 
 =item options
 
-This may be an arrayref of arrayrefs, each containing a value/name pair, or it
-may be a hashref of values and names.
+This may be an arrayref of arrayrefs, each containing a value/name/option
+tuple, or it may be a hashref of values and names.
 
 Use the array form if you need multiple entries for a single value or if order
-is important.
+is important, or to provide per-select-option options.  The only valid option
+is C<disabled>.
 
 =item value
 
@@ -115,8 +116,8 @@ sub build {
   $self->validate_value($arg->{value}, \@options) unless $arg->{ignore_invalid};
 
   for my $entry (@options) {
-    my ($value, $name) = (ref $entry) ? @$entry : ($entry) x 2;
-    my $option = $self->make_option($factory, $value, $name, $arg);
+    my ($value, $name, $opt_arg) = (ref $entry) ? @$entry : ($entry) x 2;
+    my $option = $self->make_option($factory, $value, $name, $arg, $opt_arg);
     $widget->push_content($option);
   }
 
@@ -126,19 +127,20 @@ sub build {
 
 =head2 C< make_option >
 
-  my $option = $class->make_option($factory, $value, $name, $arg);
+  my $option = $class->make_option($factory, $value, $name, $arg, $opt_arg);
 
 This method constructs the HTML::Element option element that will represent one
-of the options that may be put into the select box.  This is here for
-subclasses to exploit.
+of the options that may be put into the select box.  This method is likely to
+be refactored in the future, and its arguments may change.
 
 =cut
 
 sub make_option {
-  my ($self, $factory, $value, $name, $arg) = @_;
+  my ($self, $factory, $value, $name, $arg, $opt_arg) = @_;
 
   my $option = HTML::Element->new('option', value => $value);
      $option->push_content($name);
+     $option->attr(disabled => 'disabled') if $opt_arg && $opt_arg->{disabled};
      $option->attr(selected => 'selected')
        if defined $arg->{value} and $arg->{value} eq $value;
 

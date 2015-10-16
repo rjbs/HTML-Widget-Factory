@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 30;
+use Test::More tests => 32;
 
 BEGIN { use_ok("HTML::Widget::Factory"); }
 
@@ -15,7 +15,7 @@ use Test::WidgetFactory;
       [ ''    => 'Flavorless',     ],
       [ minty => 'Peppermint',     ],
       [ perky => 'Fresh and Warm', ],
-      [ super => 'Red and Blue',   ],
+      [ super => 'Red and Blue',  { disabled => 1 } ],
     ],
     name  => 'flavor',
     value => 'minty',
@@ -40,6 +40,10 @@ use Test::WidgetFactory;
   is(@selected, 1, "only one is selected");
 
   is($selected[0]->attr('value'), 'minty', "the correct one is selected");
+
+  my @disabled = $select->look_down(disabled => 'disabled');
+  is(@disabled, 1, "only one is disabled");
+  is($disabled[0]->attr('value'), 'super', "the correct one is disabled");
 }
 
 { # make a select field with hash options
