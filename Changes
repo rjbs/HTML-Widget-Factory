@@ -2,6 +2,9 @@ Revision history for HTML-Widget-Factory
 
 {{$NEXT}}
 
+0.204     2015-10-16 16:06:32-04:00 America/New_York
+        - allow an individual option for a select to be disabled
+
 0.203     2014-11-17 16:52:10-05:00 America/New_York
         - avoid uninitialized warnings in Textarea when no value is given
 
